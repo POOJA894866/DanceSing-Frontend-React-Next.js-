@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DanceSing — A Proven Digital Platform for Movement, Music and Mindfulness." />
+  <title>DanceSing | Movement, Music & Mindfulness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="#hero" id="nav-logo">
+      <span class="nav__logo-icon">🎵</span>
+      <span class="nav__logo-text">DanceSing</span>
+    </a>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#cta" class="btn btn--primary nav__cta" id="nav-cta">Get Started</a>
+    <button class="nav__burger" id="nav-burger" aria-label="Toggle menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1 · HERO
+     Full-viewport dark image + stats row
+     ═══════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero__overlay"></div>
+  <img class="hero__bg" src="assets/hero-dance.jpg" alt="People dancing and practicing mindful movement" loading="eager" />
+  <div class="hero__content">
+    <p class="tag tag--light">Welcome to DanceSing</p>
+    <h1 class="hero__heading">A Proven Digital Platform for<br>Movement, Music &amp; Mindfulness</h1>
+    <p class="hero__body">Transform your mind, body, and soul through expertly guided dance, singing, and mindfulness programs. Join thousands of members already on their wellness journey.</p>
+    <div class="hero__ctas">
+      <a href="#cta"   class="btn btn--primary" id="hero-cta-primary">Get Started</a>
+      <a href="#about" class="btn btn--outline"  id="hero-cta-outline">Learn More</a>
+    </div>
+  </div>
+  <div class="hero__stats">
+    <div class="hero__stat"><span class="hero__stat-value">200+</span><span class="hero__stat-label">Programs Available</span></div>
+    <div class="hero__stat"><span class="hero__stat-value">24/7</span><span class="hero__stat-label">Access Anytime</span></div>
+    <div class="hero__stat"><span class="hero__stat-value">100%</span><span class="hero__stat-label">Expert-Led</span></div>
+    <div class="hero__stat"><span class="hero__stat-value">10,000+</span><span class="hero__stat-label">Active Members</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2 · PROGRAMS — Body Mind Soul (3 cards)
+     ═══════════════════════════════════════════════ -->
+<section class="section programs" id="programs">
+  <div class="container">
+    <p class="tag">Programs</p>
+    <h2 class="section__heading">Rediscover How Dance Renews Your Body, Mind &amp; Soul</h2>
+    <p class="section__subtitle">Our curated programs blend movement, music, and mindfulness to deliver a complete wellness experience for every level.</p>
+    <div class="cards-grid">
+
+      <article class="card" id="program-body">
+        <div class="card__img-wrap">
+          <img src="assets/program-dance.jpg" alt="Person dancing with energy" loading="lazy" />
+          <span class="card__tag">Body</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__heading">Dance for Physical Wellbeing</h3>
+          <p class="card__text">Strengthen your body, improve coordination, and boost cardiovascular health through joyful, guided dance sessions.</p>
+          <a href="#programs" class="btn btn--accent" id="program-body-cta">Explore Program</a>
+        </div>
+      </article>
+
+      <article class="card" id="program-mind">
+        <div class="card__img-wrap">
+          <img src="assets/program-mindfulness.jpg" alt="Person in mindful meditative pose" loading="lazy" />
+          <span class="card__tag">Mind</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__heading">Mindfulness Through Movement</h3>
+          <p class="card__text">Calm your mind, reduce stress, and develop focus through meditative movement and breathing practices.</p>
+          <a href="#programs" class="btn btn--accent" id="program-mind-cta">Explore Program</a>
+        </div>
+      </article>
+
+      <article class="card" id="program-soul">
+        <div class="card__img-wrap">
+          <img src="assets/program-singing.jpg" alt="Group of people singing joyfully" loading="lazy" />
+          <span class="card__tag">Soul</span>
+        </div>
+        <div class="card__body">
+          <h3 class="card__heading">Singing for the Soul</h3>
+          <p class="card__text">Unlock emotional release and self-expression through vocal exercises and group singing sessions.</p>
+          <a href="#programs" class="btn btn--accent" id="program-soul-cta">Explore Program</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3 · CTA BANNER — dark strip
+     ═══════════════════════════════════════════════ -->
+<section class="cta-banner" id="cta-banner">
+  <div class="container cta-banner__inner">
+    <div class="cta-banner__text">
+      <h2 class="cta-banner__heading">Online Learning</h2>
+      <p class="cta-banner__body">Access our full library of movement, music, and mindfulness classes from anywhere in the world — at any time.</p>
+      <div class="cta-banner__ctas">
+        <a href="#cta"      class="btn btn--accent"   id="banner-cta-accent">Start Free Trial</a>
+        <a href="#programs" class="btn btn--outline"   id="banner-cta-outline">View Programs</a>
+      </div>
+    </div>
+    <div class="cta-banner__media">
+      <img src="assets/cta-video-thumb.jpg" alt="Online class video thumbnail" loading="lazy" />
+      <div class="cta-banner__play" aria-label="Play video">&#9654;</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 4 · ABOUT — Rooted in Excellence
+     Split: text LEFT / image RIGHT + stats
+     ═══════════════════════════════════════════════ -->
+<section class="section about" id="about">
+  <div class="container split-grid">
+    <div class="split-grid__text">
+      <p class="tag">About Us</p>
+      <h2 class="section__heading">Rooted in Ancestral Excellence</h2>
+      <p class="section__body">DanceSing draws from centuries of movement tradition and modern wellness science. Our platform brings together world-class instructors, proven methodologies, and a global community committed to holistic health.</p>
+      <div class="stats-row">
+        <div class="stat"><span class="stat__value">15+</span><span class="stat__label">Years Experience</span></div>
+        <div class="stat"><span class="stat__value">500+</span><span class="stat__label">Expert Instructors</span></div>
+        <div class="stat"><span class="stat__value">98%</span><span class="stat__label">Satisfaction</span></div>
+        <div class="stat"><span class="stat__value">50+</span><span class="stat__label">Countries</span></div>
+      </div>
+      <div class="cta-row">
+        <a href="#about"   class="btn btn--primary"    id="about-cta-primary">Our Story</a>
+        <a href="#programs" class="btn btn--text-arrow" id="about-cta-text">Meet the Team →</a>
+      </div>
+    </div>
+    <div class="split-grid__image">
+      <img src="assets/about-excellence.jpg" alt="Instructor demonstrating traditional dance movement" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 5 · HOW IT WORKS — 3 step cards
+     ═══════════════════════════════════════════════ -->
+<section class="section steps" id="how-it-works">
+  <div class="container">
+    <p class="tag">How It Works</p>
+    <h2 class="section__heading">Why DanceSing Works</h2>
+    <p class="section__subtitle">A science-backed, joyful approach that fits into your life — not the other way around.</p>
+    <div class="steps-grid">
+
+      <article class="step-card" id="step-1">
+        <div class="step-card__img-wrap">
+          <img src="assets/step1-choose.jpg" alt="Person browsing program options" loading="lazy" />
+          <div class="step-card__overlay">
+            <span class="step-card__number">01</span>
+            <h3 class="step-card__heading">Choose Your Program</h3>
+            <p class="step-card__sub">Browse by level, duration, or goal</p>
+            <a href="#programs" class="step-card__link">Learn More →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="step-card" id="step-2">
+        <div class="step-card__img-wrap">
+          <img src="assets/step2-learn.jpg" alt="Instructor leading an online class" loading="lazy" />
+          <div class="step-card__overlay">
+            <span class="step-card__number">02</span>
+            <h3 class="step-card__heading">Follow Expert Guidance</h3>
+            <p class="step-card__sub">Clear lessons for every skill level</p>
+            <a href="#features" class="step-card__link">Learn More →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="step-card" id="step-3">
+        <div class="step-card__img-wrap">
+          <img src="assets/step3-progress.jpg" alt="Progress dashboard showing metrics" loading="lazy" />
+          <div class="step-card__overlay">
+            <span class="step-card__number">03</span>
+            <h3 class="step-card__heading">Track Your Progress</h3>
+            <p class="step-card__sub">Celebrate milestones and stay motivated</p>
+            <a href="#plans" class="step-card__link">Learn More →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 6 · FEATURES — alternating rows
+     ═══════════════════════════════════════════════ -->
+<section class="section features" id="features">
+  <div class="container">
+    <p class="tag">Platform Features</p>
+    <h2 class="section__heading">Platform Features &amp; Amenities</h2>
+
+    <!-- Feature Row 1: image left / text right -->
+    <article class="feature-row" id="feature-live">
+      <div class="feature-row__image">
+        <img src="assets/feature-live.jpg" alt="Live video class with instructor" loading="lazy" />
+      </div>
+      <div class="feature-row__text">
+        <p class="tag">Live</p>
+        <h3 class="feature-row__heading">Live Interactive Classes</h3>
+        <p class="feature-row__body">Join real-time classes with instructors and fellow members. Ask questions, get feedback, and feel the energy of a shared experience.</p>
+        <div class="cta-row">
+          <a href="#features"  class="btn btn--primary"    id="feature-live-cta1">Explore</a>
+          <a href="#programs"  class="btn btn--text-arrow" id="feature-live-cta2">Learn More →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Feature Row 2: text left / image right -->
+    <article class="feature-row feature-row--reverse" id="feature-library">
+      <div class="feature-row__image">
+        <img src="assets/feature-library.jpg" alt="Library of video classes on screen" loading="lazy" />
+      </div>
+      <div class="feature-row__text">
+        <p class="tag">On-Demand</p>
+        <h3 class="feature-row__heading">Unlimited On-Demand Library</h3>
+        <p class="feature-row__body">Access over 200+ recorded classes whenever suits you. Replay your favourites, skip ahead, or slow down at your own pace.</p>
+        <div class="cta-row">
+          <a href="#features"  class="btn btn--primary"    id="feature-lib-cta1">Browse Library</a>
+          <a href="#programs"  class="btn btn--text-arrow" id="feature-lib-cta2">Learn More →</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Feature Row 3: image left / text right -->
+    <article class="feature-row" id="feature-community">
+      <div class="feature-row__image">
+        <img src="assets/feature-community.jpg" alt="Community members connecting online" loading="lazy" />
+      </div>
+      <div class="feature-row__text">
+        <p class="tag">Community</p>
+        <h3 class="feature-row__heading">A Global Wellness Community</h3>
+        <p class="feature-row__body">Connect with thousands of members worldwide. Share your journey, celebrate progress, and find accountability partners.</p>
+        <div class="cta-row">
+          <a href="#cta"       class="btn btn--primary"    id="feature-com-cta1">Join Community</a>
+          <a href="#features"  class="btn btn--text-arrow" id="feature-com-cta2">Learn More →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 7 · PLANS — dark bg, 3 pricing cards
+     ═══════════════════════════════════════════════ -->
+<section class="plans" id="plans">
+  <div class="container">
+    <p class="tag tag--light">Membership</p>
+    <h2 class="section__heading section__heading--light">Choose Your Wellness Journey</h2>
+    <p class="section__subtitle section__subtitle--light">Flexible plans to match your lifestyle and commitment level.</p>
+    <div class="plans-grid">
+
+      <article class="plan-card" id="plan-starter">
+        <h3 class="plan-card__name">Starter</h3>
+        <div class="plan-card__price"><span class="plan-card__amount">Free</span></div>
+        <ul class="plan-card__features">
+          <li>5 free classes per month</li>
+          <li>Access to community forum</li>
+          <li>Basic progress tracking</li>
+          <li>Mobile app access</li>
+        </ul>
+        <a href="#cta" class="btn btn--outline" id="plan-starter-cta">Get Started Free</a>
+      </article>
+
+      <article class="plan-card plan-card--featured" id="plan-pro">
+        <span class="plan-card__badge">Most Popular</span>
+        <h3 class="plan-card__name">Pro</h3>
+        <div class="plan-card__price"><span class="plan-card__amount">$19</span><span class="plan-card__period">/month</span></div>
+        <ul class="plan-card__features">
+          <li>Unlimited class access</li>
+          <li>Live interactive classes</li>
+          <li>Advanced progress tracking</li>
+          <li>Community + expert Q&amp;A</li>
+          <li>Downloadable resources</li>
+        </ul>
+        <a href="#cta" class="btn btn--accent" id="plan-pro-cta">Start Pro Trial</a>
+      </article>
+
+      <article class="plan-card" id="plan-studio">
+        <h3 class="plan-card__name">Studio</h3>
+        <div class="plan-card__price"><span class="plan-card__amount">$49</span><span class="plan-card__period">/month</span></div>
+        <ul class="plan-card__features">
+          <li>Everything in Pro</li>
+          <li>1-on-1 coaching sessions</li>
+          <li>Personalised program design</li>
+          <li>Priority community support</li>
+          <li>Early access to new content</li>
+        </ul>
+        <a href="#cta" class="btn btn--outline" id="plan-studio-cta">Go Studio</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 8 · FAQ — accordion
+     ═══════════════════════════════════════════════ -->
+<section class="section faq" id="faq">
+  <div class="container faq__container">
+    <p class="tag">FAQ</p>
+    <h2 class="section__heading">Frequently Asked Questions</h2>
+    <p class="section__subtitle">Everything you need to know before you begin your DanceSing journey.</p>
+
+    <div class="faq__list">
+
+      <div class="faq__item is-open" id="faq-1">
+        <button class="faq__question" onclick="this.closest('.faq__item').classList.toggle('is-open')" aria-expanded="true">
+          Do I need any prior dance or singing experience?
+          <span class="faq__chevron">&#8964;</span>
+        </button>
+        <div class="faq__answer">
+          <p>Absolutely not. DanceSing is designed for all levels — from complete beginners to advanced practitioners. Our instructors provide clear guidance at every step.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" id="faq-2">
+        <button class="faq__question" onclick="this.closest('.faq__item').classList.toggle('is-open')" aria-expanded="false">
+          What equipment do I need?
+          <span class="faq__chevron">&#8964;</span>
+        </button>
+        <div class="faq__answer">
+          <p>All you need is a device with internet access and a bit of space to move. Some programs may recommend specific props, but these are always optional and affordable.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" id="faq-3">
+        <button class="faq__question" onclick="this.closest('.faq__item').classList.toggle('is-open')" aria-expanded="false">
+          Can I access classes on my phone or tablet?
+          <span class="faq__chevron">&#8964;</span>
+        </button>
+        <div class="faq__answer">
+          <p>Yes! Our platform is fully optimised for mobile devices. Download our app for the best experience, or access everything through your browser.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" id="faq-4">
+        <button class="faq__question" onclick="this.closest('.faq__item').classList.toggle('is-open')" aria-expanded="false">
+          How does the free trial work?
+          <span class="faq__chevron">&#8964;</span>
+        </button>
+        <div class="faq__answer">
+          <p>Your free trial gives you full Pro access for 14 days — no credit card required. At the end of the trial, choose the plan that suits you or continue with our free Starter tier.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" id="faq-5">
+        <button class="faq__question" onclick="this.closest('.faq__item').classList.toggle('is-open')" aria-expanded="false">
+          Can I cancel my subscription anytime?
+          <span class="faq__chevron">&#8964;</span>
+        </button>
+        <div class="faq__answer">
+          <p>Yes, you can cancel at any time with no penalties. Your access continues until the end of the billing period.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="faq__footer-cta">
+      <h3>Still have questions?</h3>
+      <p>Our support team is ready to help you get started.</p>
+      <a href="#contact" class="btn btn--primary" id="faq-contact-cta">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 9 · NEWSLETTER / FINAL CTA
+     dark navy bg, centred email form
+     ═══════════════════════════════════════════════ -->
+<section class="newsletter" id="cta">
+  <div class="container newsletter__container">
+    <h2 class="newsletter__heading">Stay Inspired<br>Never Miss a Class</h2>
+    <p class="newsletter__subtitle">Get weekly wellness tips, new program announcements, and exclusive member offers delivered to your inbox.</p>
+    <form class="newsletter__form" onsubmit="return false;" id="newsletter-form">
+      <input type="email" class="newsletter__input" placeholder="Enter your email address" aria-label="Email address" id="newsletter-email" />
+      <button type="submit" class="newsletter__btn" id="newsletter-submit">Sign Up Free</button>
+    </form>
+    <p class="newsletter__disclaimer">By signing up you agree to our Terms of Service and Privacy Policy. Unsubscribe at any time.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+     dark navy — logo + columns + socials + legal
+     ═══════════════════════════════════════════════ -->
+<footer class="footer" id="footer">
+  <div class="container footer__main">
+    <div class="footer__brand">
+      <a href="#hero" class="footer__logo" id="footer-logo">
+        <span class="footer__logo-icon">🎵</span>
+        <span class="footer__logo-text">DanceSing</span>
+      </a>
+      <p class="footer__tagline">A Proven Digital Platform for Movement, Music &amp; Mindfulness.</p>
+      <div class="footer__socials">
+        <a href="#" class="footer__social" aria-label="Facebook" id="social-facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="footer__social" aria-label="Instagram" id="social-instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" class="footer__social" aria-label="X / Twitter" id="social-x">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" class="footer__social" aria-label="YouTube" id="social-youtube">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a1f3c"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer__col">
+      <h4 class="footer__col-heading">Platform</h4>
+      <ul>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#features">Live Classes</a></li>
+        <li><a href="#features">On-Demand</a></li>
+        <li><a href="#features">Community</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4 class="footer__col-heading">Company</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#careers">Careers</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h4 class="footer__col-heading">Support</h4>
+      <ul>
+        <li><a href="#help">Help Centre</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#accessibility">Accessibility</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p class="footer__copy">&copy; 2025 DanceSing. All rights reserved.</p>
+      <ul class="footer__legal">
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#terms">Terms of Service</a></li>
+        <li><a href="#cookies">Cookie Preferences</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

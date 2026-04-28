@@ -1,0 +1,476 @@
+{
+  "_comment_file": [
+    "═══════════════════════════════════════════════════════════════",
+    "DANCESING — content.json",
+    "═══════════════════════════════════════════════════════════════",
+    "Single source of truth for all text, image paths, button labels,",
+    "hrefs, and section metadata across the homepage (index.html).",
+    "",
+    "HOW TO USE",
+    "──────────",
+    "• Edit values here, then update the matching HTML in index.html.",
+    "• 'style' on CTAs maps to CSS modifier classes:",
+    "    primary        → .btn.btn--primary     (dark navy fill)",
+    "    outline        → .btn.btn--outline     (white border, dark bg)",
+    "    accent         → .btn.btn--accent      (orange/gold accent)",
+    "    text-arrow     → .btn.btn--text-arrow  (borderless link style)",
+    "• 'background' values: white | dark | navy | accent",
+    "• All image files live in assets/ folder.",
+    "• _comment fields are documentation only; ignored by browsers/JS.",
+    "═══════════════════════════════════════════════════════════════"
+  ],
+
+  "_comment_site": "Global site identity — name and logo.",
+  "site": {
+    "name": "DanceSing",
+    "tagline": "A Proven Digital Platform for Movement, Music & Mindfulness",
+    "logo": {
+      "text": "DanceSing",
+      "alt": "DanceSing Logo",
+      "src": "assets/logo.png"
+    }
+  },
+
+  "_comment_navigation": [
+    "NAVIGATION — fixed top bar visible across all scroll positions.",
+    "Three zones: [logo]  [centre links]  [CTA button]",
+    "• 'links' drives the centre nav items.",
+    "• 'cta' is the primary conversion button on the right."
+  ],
+  "navigation": {
+    "links": [
+      { "label": "Home",        "href": "#hero"       },
+      { "label": "About",       "href": "#about"      },
+      { "label": "Programs",    "href": "#programs"   },
+      { "label": "How It Works","href": "#how-it-works"},
+      { "label": "Features",    "href": "#features"   },
+      { "label": "FAQ",         "href": "#faq"        }
+    ],
+    "cta": {
+      "label": "Get Started",
+      "href": "#cta",
+      "style": "primary"
+    }
+  },
+
+  "_comment_sections": "All homepage sections in page order, top → bottom.",
+  "sections": [
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 1 · HERO",
+        "Type: hero | Background: dark navy with gradient overlay on image",
+        "Layout: full-viewport image with centred text overlay.",
+        "Stats row: 200+ | 24/7 | 100% | 10,000+ — displayed below heading.",
+        "Image: assets/hero-dance.jpg (people dancing/movement)",
+        "Loaded with loading='eager' — it is above the fold.",
+        "Both buttons are style 'primary' and 'outline'.",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "hero",
+      "type": "hero",
+      "background": "dark",
+      "image": {
+        "src": "assets/hero-dance.jpg",
+        "alt": "People dancing and practicing mindful movement together"
+      },
+      "tag": "Welcome to DanceSing",
+      "heading": "A Proven Digital Platform for Movement, Music & Mindfulness",
+      "body": "Transform your mind, body, and soul through expertly guided dance, singing, and mindfulness programs. Join thousands of members already on their wellness journey.",
+      "stats": [
+        { "value": "200+",    "label": "Programs Available" },
+        { "value": "24/7",    "label": "Access Anytime"      },
+        { "value": "100%",    "label": "Expert-Led"          },
+        { "value": "10,000+", "label": "Active Members"      }
+      ],
+      "ctas": [
+        { "label": "Get Started",  "href": "#cta",      "style": "primary"  },
+        { "label": "Learn More",   "href": "#about",    "style": "outline"  }
+      ]
+    },
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 2 · PROGRAMS (Body Mind Soul)",
+        "Type: cards-grid | Background: white",
+        "Layout: centred heading/subtitle then 3-col program cards.",
+        "Each card: image top (4:3) + tag + heading + body + CTA button.",
+        "Images: program-dance.jpg · program-mindfulness.jpg · program-singing.jpg",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "programs",
+      "type": "cards-grid",
+      "background": "white",
+      "tag": "Programs",
+      "heading": "Rediscover How Dance Renews Your Body, Mind & Soul",
+      "subtitle": "Our curated programs blend movement, music, and mindfulness to deliver a complete wellness experience for every level.",
+      "cards": [
+        {
+          "_comment": "Card 1 — Body / Dance",
+          "id": "program-body",
+          "tag": "Body",
+          "heading": "Dance for Physical Wellbeing",
+          "body": "Strengthen your body, improve coordination, and boost cardiovascular health through joyful, guided dance sessions.",
+          "image": { "src": "assets/program-dance.jpg", "alt": "Person dancing with energy and expression" },
+          "cta": { "label": "Explore Program", "href": "#programs", "style": "accent" }
+        },
+        {
+          "_comment": "Card 2 — Mind / Mindfulness",
+          "id": "program-mind",
+          "tag": "Mind",
+          "heading": "Mindfulness Through Movement",
+          "body": "Calm your mind, reduce stress, and develop focus through meditative movement and breathing practices.",
+          "image": { "src": "assets/program-mindfulness.jpg", "alt": "Person in mindful meditative pose outdoors" },
+          "cta": { "label": "Explore Program", "href": "#programs", "style": "accent" }
+        },
+        {
+          "_comment": "Card 3 — Soul / Singing",
+          "id": "program-soul",
+          "tag": "Soul",
+          "heading": "Singing for the Soul",
+          "body": "Unlock emotional release and self-expression through vocal exercises and group singing sessions.",
+          "image": { "src": "assets/program-singing.jpg", "alt": "Group of people singing joyfully together" },
+          "cta": { "label": "Explore Program", "href": "#programs", "style": "accent" }
+        }
+      ]
+    },
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 3 · CTA BANNER (dark strip)",
+        "Type: cta-banner | Background: dark navy",
+        "Layout: 2-col split — text LEFT / video/image RIGHT.",
+        "Simple dark banner with heading, subtitle, and two buttons.",
+        "Image/video: assets/cta-video-thumb.jpg",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "cta-banner",
+      "type": "cta-banner",
+      "background": "dark",
+      "heading": "Online learning",
+      "subtitle": "Access our full library of movement, music, and mindfulness classes from anywhere in the world — at any time.",
+      "ctas": [
+        { "label": "Start Free Trial", "href": "#cta",   "style": "accent"   },
+        { "label": "View Programs",    "href": "#programs","style": "outline" }
+      ],
+      "image": { "src": "assets/cta-video-thumb.jpg", "alt": "Online class video thumbnail showing instructor" }
+    },
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 4 · ABOUT / EXCELLENCE",
+        "Type: split-feature | Background: white",
+        "Layout: 2-col — text LEFT / image RIGHT.",
+        "Stats sub-grid on the left side.",
+        "Image: assets/about-excellence.jpg",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "about",
+      "type": "split-feature",
+      "background": "white",
+      "imagePosition": "right",
+      "tag": "About Us",
+      "heading": "Rooted in Ancestral Excellence",
+      "body": "DanceSing draws from centuries of movement tradition and modern wellness science. Our platform brings together world-class instructors, proven methodologies, and a global community committed to holistic health.",
+      "stats": [
+        { "value": "15+",   "label": "Years of Experience"   },
+        { "value": "500+",  "label": "Expert Instructors"    },
+        { "value": "98%",   "label": "Member Satisfaction"   },
+        { "value": "50+",   "label": "Countries Reached"     }
+      ],
+      "ctas": [
+        { "label": "Our Story",   "href": "#about",    "style": "primary"     },
+        { "label": "Meet Team",   "href": "#team",     "style": "text-arrow"  }
+      ],
+      "image": { "src": "assets/about-excellence.jpg", "alt": "Instructor demonstrating traditional dance movement" }
+    },
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 5 · HOW IT WORKS",
+        "Type: steps-grid | Background: white",
+        "Layout: centred tag/heading/subtitle then 3-col step cards.",
+        "Each card: icon + step number + heading + body.",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "how-it-works",
+      "type": "steps-grid",
+      "background": "white",
+      "tag": "How It Works",
+      "heading": "Why DanceSing Works",
+      "subtitle": "A science-backed, joyful approach that fits into your life — not the other way around.",
+      "steps": [
+        {
+          "number": "01",
+          "heading": "Choose Your Program",
+          "body": "Browse our library of dance, singing, and mindfulness programs. Filter by level, duration, or wellness goal.",
+          "icon": "search",
+          "image": { "src": "assets/step1-choose.jpg", "alt": "Person browsing program options on tablet" }
+        },
+        {
+          "number": "02",
+          "heading": "Follow Expert Guidance",
+          "body": "Learn from world-class instructors with clear, structured lessons designed for every skill level.",
+          "icon": "play",
+          "image": { "src": "assets/step2-learn.jpg", "alt": "Instructor leading an online class" }
+        },
+        {
+          "number": "03",
+          "heading": "Track Your Progress",
+          "body": "Monitor your growth, celebrate milestones, and stay motivated with our built-in progress tracking.",
+          "icon": "chart",
+          "image": { "src": "assets/step3-progress.jpg", "alt": "Progress dashboard showing wellness metrics" }
+        }
+      ]
+    },
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 6 · FEATURES",
+        "Type: feature-list | Background: white",
+        "Layout: 2-col alternating rows — image one side, text other.",
+        "Button pattern per row: primary + text-arrow.",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "features",
+      "type": "feature-list",
+      "background": "white",
+      "tag": "Platform Features",
+      "heading": "Platform Features & Amenities",
+      "items": [
+        {
+          "_comment": "Feature 1 — Live Classes",
+          "id": "feature-live",
+          "tag": "Live",
+          "heading": "Live Interactive Classes",
+          "body": "Join real-time classes with instructors and fellow members. Ask questions, get feedback, and feel the energy of a shared experience.",
+          "image": { "src": "assets/feature-live.jpg", "alt": "Live video class with instructor and participants" },
+          "ctas": [
+            { "label": "Explore",    "href": "#features",  "style": "primary"    },
+            { "label": "Learn More", "href": "#programs",  "style": "text-arrow" }
+          ]
+        },
+        {
+          "_comment": "Feature 2 — On-Demand Library",
+          "id": "feature-library",
+          "tag": "On-Demand",
+          "heading": "Unlimited On-Demand Library",
+          "body": "Access over 200+ recorded classes whenever suits you. Replay your favourites, skip ahead, or slow down at your own pace.",
+          "image": { "src": "assets/feature-library.jpg", "alt": "Library of video classes on screen" },
+          "ctas": [
+            { "label": "Browse Library", "href": "#features",  "style": "primary"    },
+            { "label": "Learn More",     "href": "#programs",  "style": "text-arrow" }
+          ]
+        },
+        {
+          "_comment": "Feature 3 — Community",
+          "id": "feature-community",
+          "tag": "Community",
+          "heading": "A Global Wellness Community",
+          "body": "Connect with thousands of members worldwide. Share your journey, celebrate progress, and find accountability partners.",
+          "image": { "src": "assets/feature-community.jpg", "alt": "Community members connecting online" },
+          "ctas": [
+            { "label": "Join Community", "href": "#cta",       "style": "primary"    },
+            { "label": "Learn More",     "href": "#features",  "style": "text-arrow" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 7 · MEMBERSHIP PLANS (Cards)",
+        "Type: plans-grid | Background: dark navy",
+        "Layout: centred heading then 3 pricing/plan cards.",
+        "Each card: plan name + price + features list + CTA.",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "plans",
+      "type": "plans-grid",
+      "background": "dark",
+      "tag": "Membership",
+      "heading": "Choose Your Wellness Journey",
+      "subtitle": "Flexible plans to match your lifestyle and commitment level.",
+      "plans": [
+        {
+          "_comment": "Plan 1 — Starter",
+          "id": "plan-starter",
+          "name": "Starter",
+          "price": "Free",
+          "period": "forever",
+          "features": [
+            "5 free classes per month",
+            "Access to community forum",
+            "Basic progress tracking",
+            "Mobile app access"
+          ],
+          "cta": { "label": "Get Started Free", "href": "#cta", "style": "outline" }
+        },
+        {
+          "_comment": "Plan 2 — Pro (featured/highlighted)",
+          "id": "plan-pro",
+          "name": "Pro",
+          "price": "$19",
+          "period": "per month",
+          "featured": true,
+          "features": [
+            "Unlimited class access",
+            "Live interactive classes",
+            "Advanced progress tracking",
+            "Community + expert Q&A",
+            "Downloadable resources"
+          ],
+          "cta": { "label": "Start Pro Trial", "href": "#cta", "style": "accent" }
+        },
+        {
+          "_comment": "Plan 3 — Studio (premium)",
+          "id": "plan-studio",
+          "name": "Studio",
+          "price": "$49",
+          "period": "per month",
+          "features": [
+            "Everything in Pro",
+            "1-on-1 coaching sessions",
+            "Personalised program design",
+            "Priority community support",
+            "Early access to new content"
+          ],
+          "cta": { "label": "Go Studio", "href": "#cta", "style": "outline" }
+        }
+      ]
+    },
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 8 · FAQ",
+        "Type: faq-accordion | Background: white",
+        "Layout: narrow centred column (max 680px).",
+        "5 accordion items toggled by JS.",
+        "'defaultOpen: true' → item starts expanded.",
+        "Below accordion: CTA callout block.",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "faq",
+      "type": "faq-accordion",
+      "background": "white",
+      "tag": "FAQ",
+      "heading": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know before you begin your DanceSing journey.",
+      "items": [
+        {
+          "question": "Do I need any prior dance or singing experience?",
+          "answer": "Absolutely not. DanceSing is designed for all levels — from complete beginners to advanced practitioners. Our instructors provide clear guidance at every step.",
+          "defaultOpen": true
+        },
+        {
+          "question": "What equipment do I need?",
+          "answer": "All you need is a device with internet access and a bit of space to move. Some programs may recommend specific props, but these are always optional and affordable."
+        },
+        {
+          "question": "Can I access classes on my phone or tablet?",
+          "answer": "Yes! Our platform is fully optimised for mobile devices. Download our app for the best experience, or access everything through your browser."
+        },
+        {
+          "question": "How does the free trial work?",
+          "answer": "Your free trial gives you full Pro access for 14 days — no credit card required. At the end of the trial, choose the plan that suits you or continue with our free Starter tier."
+        },
+        {
+          "question": "Can I cancel my subscription anytime?",
+          "answer": "Yes, you can cancel at any time with no penalties. Your access continues until the end of the billing period."
+        }
+      ],
+      "footerCta": {
+        "heading": "Still have questions?",
+        "body": "Our support team is ready to help you get started.",
+        "cta": { "label": "Contact Us", "href": "#contact", "style": "primary" }
+      }
+    },
+
+    {
+      "_comment": [
+        "──────────────────────────────────────────────────────────────",
+        "SECTION 9 · NEWSLETTER / CTA",
+        "Type: newsletter | Background: dark navy",
+        "Layout: centred column — heading + subtitle + email form.",
+        "Form: joined input + button (appears as one element).",
+        "──────────────────────────────────────────────────────────────"
+      ],
+      "id": "newsletter",
+      "type": "newsletter",
+      "background": "dark",
+      "heading": "Stay Inspired\nNever Miss a Class",
+      "subtitle": "Get weekly wellness tips, new program announcements, and exclusive member offers delivered to your inbox.",
+      "inputPlaceholder": "Enter your email address",
+      "submitLabel": "Sign Up Free",
+      "disclaimer": "By signing up you agree to our Terms of Service and Privacy Policy. Unsubscribe at any time."
+    }
+
+  ],
+
+  "_comment_footer": [
+    "──────────────────────────────────────────────────────────────",
+    "FOOTER",
+    "Background: dark navy",
+    "Two rows: logo + columns + socials | copyright + legal links",
+    "──────────────────────────────────────────────────────────────"
+  ],
+  "footer": {
+    "background": "dark",
+    "logo": {
+      "text": "DanceSing",
+      "src": "assets/logo.png",
+      "alt": "DanceSing"
+    },
+    "tagline": "A Proven Digital Platform for Movement, Music & Mindfulness",
+    "columns": [
+      {
+        "heading": "Platform",
+        "links": [
+          { "label": "Programs",    "href": "#programs"    },
+          { "label": "Live Classes","href": "#features"    },
+          { "label": "On-Demand",   "href": "#features"    },
+          { "label": "Community",   "href": "#features"    }
+        ]
+      },
+      {
+        "heading": "Company",
+        "links": [
+          { "label": "About Us",    "href": "#about"       },
+          { "label": "Our Team",    "href": "#team"        },
+          { "label": "Blog",        "href": "#blog"        },
+          { "label": "Careers",     "href": "#careers"     }
+        ]
+      },
+      {
+        "heading": "Support",
+        "links": [
+          { "label": "Help Centre", "href": "#help"        },
+          { "label": "Contact Us",  "href": "#contact"     },
+          { "label": "FAQ",         "href": "#faq"         },
+          { "label": "Accessibility","href": "#accessibility"}
+        ]
+      }
+    ],
+    "socialLinks": [
+      { "platform": "Facebook",  "href": "#" },
+      { "platform": "Instagram", "href": "#" },
+      { "platform": "X",         "href": "#" },
+      { "platform": "YouTube",   "href": "#" },
+      { "platform": "TikTok",    "href": "#" }
+    ],
+    "legalLinks": [
+      { "label": "Privacy Policy",       "href": "#privacy"  },
+      { "label": "Terms of Service",     "href": "#terms"    },
+      { "label": "Cookie Preferences",   "href": "#cookies"  }
+    ],
+    "copyright": "© 2025 DanceSing. All rights reserved."
+  }
+}
