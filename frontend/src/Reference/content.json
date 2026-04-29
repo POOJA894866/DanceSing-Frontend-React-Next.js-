@@ -1,17 +1,40 @@
 {
   "site": {
     "name": "DanceSing",
-    "logo": { "text": "DanceSing", "alt": "Logo", "src": null }
+    "logo": {
+      "text": "DanceSing",
+      "alt": "Logo",
+      "src": null
+    }
   },
   "navigation": {
     "links": [
-      { "label": "About Us", "href": "#about" },
-      { "label": "Resources", "href": "#programs" },
-      { "label": "Pricing", "href": "#plans" },
-      { "label": "Blogs", "href": "#blog" },
-      { "label": "Contact Us", "href": "#newsletter" }
+      {
+        "label": "About Us",
+        "href": "#about"
+      },
+      {
+        "label": "Resources",
+        "href": "#programs"
+      },
+      {
+        "label": "Pricing",
+        "href": "#plans"
+      },
+      {
+        "label": "Blogs",
+        "href": "#blog"
+      },
+      {
+        "label": "Contact Us",
+        "href": "#newsletter"
+      }
     ],
-    "cta": { "label": "Get Started", "href": "#cta", "style": "primary" }
+    "cta": {
+      "label": "Get Started",
+      "href": "#cta",
+      "style": "primary"
+    }
   },
   "sections": [
     {
@@ -20,13 +43,29 @@
       "heading": "Movement, Music & Mindfulness",
       "body": "Transform your mind, body, and soul through expertly guided dance, singing, and mindfulness programs.",
       "stats": [
-        { "value": "200+", "label": "Programs Available" },
-        { "value": "24/7", "label": "Access Anytime" },
-        { "value": "100%", "label": "Expert-Led" },
-        { "value": "10,000+", "label": "Active Members" }
+        {
+          "value": "200+",
+          "label": "Programs Available"
+        },
+        {
+          "value": "24/7",
+          "label": "Access Anytime"
+        },
+        {
+          "value": "100%",
+          "label": "Expert-Led"
+        },
+        {
+          "value": "10,000+",
+          "label": "Active Members"
+        }
       ],
       "ctas": [
-        { "label": "Get Started", "href": "#cta", "style": "primary" }
+        {
+          "label": "Get Started",
+          "href": "#cta",
+          "style": "primary"
+        }
       ]
     },
     {
@@ -35,9 +74,18 @@
       "heading": "Wellness that Moves You — Body, Mind & Soul",
       "subtitle": "We combine Movement, Music, and Mindfulness to power joy, connection, and fun.",
       "categoryTags": [
-        { "label": "Older adults", "icon": "heart" },
-        { "label": "Care professionals", "icon": "users" },
-        { "label": "Independent living", "icon": "leaf" }
+        {
+          "label": "Older adults",
+          "icon": "heart"
+        },
+        {
+          "label": "Care professionals",
+          "icon": "users"
+        },
+        {
+          "label": "Independent living",
+          "icon": "leaf"
+        }
       ],
       "cards": [
         {
@@ -45,21 +93,32 @@
           "heading": "danceSing Care",
           "body": "A complete wellbeing programme for the care sector.",
           "icon": "heart",
-          "features": ["Care homes", "Memory care", "Boosts mood"]
+          "features": [
+            "Care homes",
+            "Memory care",
+            "Boosts mood"
+          ]
         },
         {
           "tag": "LIFESTYLE",
           "heading": "danceSing Lifestyle",
           "body": "A wellbeing platform for more able individuals.",
           "icon": "leaf",
-          "features": ["Personal wellness", "Reduces stress", "Active aging"]
+          "features": [
+            "Personal wellness",
+            "Reduces stress",
+            "Active aging"
+          ]
         },
         {
           "tag": "ON AIR RADIO",
           "heading": "danceSing On Air",
           "body": "A 24/7 wellbeing radio station.",
           "icon": "radio",
-          "features": ["Care settings", "Lifts mood instantly"]
+          "features": [
+            "Care settings",
+            "Lifts mood instantly"
+          ]
         }
       ]
     },
@@ -67,7 +126,13 @@
       "type": "cta-banner",
       "heading": "Online learning",
       "subtitle": "Access our full library from anywhere.",
-      "ctas": [{ "label": "Start Free Trial", "href": "#cta", "style": "accent" }]
+      "ctas": [
+        {
+          "label": "Start Free Trial",
+          "href": "#cta",
+          "style": "accent"
+        }
+      ]
     },
     {
       "type": "about-split",
@@ -76,24 +141,55 @@
       "body": "Our programmes are developed in collaboration with leading universities.",
       "imagePosition": "right",
       "stats": [
-        { "value": "95%", "label": "Improvement in mood" },
-        { "value": "88%", "label": "Increase in mobility" }
+        {
+          "value": "95%",
+          "label": "Improvement in mood"
+        },
+        {
+          "value": "88%",
+          "label": "Increase in mobility"
+        }
       ],
-      "ctas": [{ "label": "Our Research", "href": "#", "style": "primary" }]
+      "ctas": [
+        {
+          "label": "Our Research",
+          "href": "#",
+          "style": "primary"
+        }
+      ]
     },
     {
       "type": "steps-grid",
       "tag": "HOW IT WORKS",
       "heading": "Why Breathing Works",
       "steps": [
-        { "number": "01", "heading": "For the mind", "description": "Deep breathing activates the nervous system.", "icon": "brain" },
-        { "number": "02", "heading": "For the body", "description": "Improved oxygen flow boosts circulation.", "icon": "activity" },
-        { "number": "03", "heading": "For the soul", "description": "Rhythmic breathing creates connection.", "icon": "heart" }
+        {
+          "number": "01",
+          "heading": "For the mind",
+          "description": "Deep breathing activates the nervous system.",
+          "icon": "brain"
+        },
+        {
+          "number": "02",
+          "heading": "For the body",
+          "description": "Improved oxygen flow boosts circulation.",
+          "icon": "activity"
+        },
+        {
+          "number": "03",
+          "heading": "For the soul",
+          "description": "Rhythmic breathing creates connection.",
+          "icon": "heart"
+        }
       ]
     }
   ],
   "footer": {
-    "logo": { "text": "DanceSing", "src": null, "alt": "Logo" },
+    "logo": {
+      "text": "DanceSing",
+      "src": null,
+      "alt": "Logo"
+    },
     "copyright": "© 2026 DanceSing. All rights reserved."
   }
 }

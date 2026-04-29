@@ -10,26 +10,11 @@ const Footer = ({ data }) => {
           
           {/* Brand Column */}
           <div style={{ textAlign: 'left' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-              {/* Logo SVG */}
-              <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.5 12.5C14.5 12.5 16 11 16 9C16 7 14.5 5.5 12.5 5.5C10.5 5.5 9 7 9 9C9 11 10.5 12.5 12.5 12.5Z" fill="white"/>
-                <path d="M28 10C28 10 24 8 20 8C16 8 12 10 12 10C12 10 9 13 8 17C7 21 8 27 8 27C8 27 10 29 14 29C18 29 22 29 22 29C26 29 28 27 28 27C28 27 30 21 30 17C30 13 28 10 28 10Z" fill="white" fillOpacity="0.4"/>
-                <path d="M10 15C10 15 14 13 18 13C22 13 26 15 26 15C26 15 28 18 28 22C28 26 26 32 26 32C26 32 24 34 20 34C16 34 12 34 12 34C8 34 6 32 6 32C6 32 4 26 4 22C4 18 6 15 10 15Z" fill="white"/>
-                <path d="M14 34L11 38H17L19 34H14Z" fill="white"/>
-                <path d="M24 34L27 38H21L19 34H24Z" fill="white"/>
-              </svg>
-              <div>
-                <span style={{ fontSize: '24px', fontWeight: '800', letterSpacing: '-0.02em', color: 'white', lineHeight: '1.1', display: 'block' }}>
-                  danceSing
-                </span>
-                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)', textTransform: 'none', letterSpacing: '0.05em', fontWeight: '400' }}>
-                  Enriching Lives
-                </span>
-              </div>
+            <div style={{ marginBottom: '20px' }}>
+              <img src="/images/logo-footer.png" alt="danceSing" style={{ height: '56px', width: 'auto', display: 'block' }} />
             </div>
             <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.6', marginBottom: '24px' }}>
-              Transforming Later Life Wellbeing through Music, Movement and Mindfulness. Registered with the Information Commissioner's Office (ICO), Reg. No. ZA754451.
+              Transforming Later Life Wellbeing through Music, Movement and Mindfulness. Registered with the Information Commissioner&apos;s Office (ICO), Reg. No. ZA754451.
             </p>
             
             {/* Socials */}

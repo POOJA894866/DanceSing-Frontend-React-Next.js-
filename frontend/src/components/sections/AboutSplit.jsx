@@ -22,8 +22,8 @@ const AboutSplit = ({ data }) => {
               {tag.includes('EXCELLENCE') ? 'ACADEMIC PARTNERSHIP' : tag}
             </p>
           )}
-          
-          <h2 style={{ fontSize: '46px', fontWeight: '800', color: '#1e2445', marginBottom: '28px', lineHeight: '1.15', letterSpacing: '-0.02em' }}>
+
+          <h2 style={{ fontSize: '48px', alignSelf: 'stretch', fontWeight: '700', color: '#283466', marginBottom: '28px', lineHeight: '1.15', letterSpacing: '-1px', fontFamily: 'Sora' }}>
             {heading || 'Backed by Academic Excellence'}
           </h2>
 
@@ -40,7 +40,7 @@ const AboutSplit = ({ data }) => {
               {/* Partnership Pill */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', background: '#f1f5f9', padding: '16px 24px', borderRadius: '16px', marginBottom: '40px' }}>
                 <div style={{ color: '#1e2445', background: 'white', width: '44px', height: '44px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 10px rgba(0,0,0,0.05)', flexShrink: 0 }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg>
                 </div>
                 <div>
                   <strong style={{ display: 'block', fontSize: '16px', color: '#1e2445' }}>University of Stirling Partnership</strong>
@@ -53,36 +53,43 @@ const AboutSplit = ({ data }) => {
           {/* CTA Buttons */}
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
             {ctas?.length > 0 ? (
-              ctas.map((cta, i) => {
-                const isPrimary = cta.style === 'primary' || cta.style === 'accent';
-                return (
-                  <a key={i} href={cta.href} style={{ 
-                    display: 'inline-flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    gap: '10px', 
-                    background: isPrimary ? '#993d3d' : 'transparent', 
-                    color: isPrimary ? 'white' : '#1e2445', 
-                    border: isPrimary ? 'none' : '1px solid #cbd5e1',
-                    padding: '14px 32px', 
-                    borderRadius: '12px', 
-                    fontWeight: '700', 
-                    fontSize: '16px', 
-                    textDecoration: 'none',
-                    boxShadow: isPrimary ? '0 10px 20px rgba(153,61,61,0.15)' : 'none',
-                    transition: 'all 0.2s'
-                  }}>
-                    {cta.label}
-                    {isPrimary && <span>→</span>}
+              <>
+                {ctas.map((cta, i) => {
+                  const isPrimary = cta.style === 'primary' || cta.style === 'accent';
+                  return (
+                    <a key={i} href={cta.href || '#'} style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                      background: isPrimary ? '#993d3d' : 'white',
+                      color: isPrimary ? 'white' : '#1e2445',
+                      border: isPrimary ? 'none' : '1.5px solid #1e2445',
+                      padding: '14px 32px',
+                      borderRadius: '12px',
+                      fontWeight: '700',
+                      fontSize: '16px',
+                      textDecoration: 'none',
+                      boxShadow: isPrimary ? '0 10px 20px rgba(153,61,61,0.15)' : 'none',
+                      transition: 'all 0.2s'
+                    }}>
+                      {isPrimary ? 'Explore Care Plans →' : cta.label}
+                    </a>
+                  )
+                })}
+                {/* Statically add the Read the Research button if the mapped data only provided one button */}
+                {ctas.length === 1 && (
+                  <a href="#" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '10px', background: 'white', color: '#1e2445', border: '1.5px solid #1e2445', padding: '14px 32px', borderRadius: '12px', fontWeight: '700', fontSize: '16px', textDecoration: 'none', transition: 'all 0.2s' }}>
+                    Read the Research
                   </a>
-                )
-              })
+                )}
+              </>
             ) : (
               <>
                 <a href="#" style={{ background: '#993d3d', color: 'white', padding: '14px 32px', borderRadius: '12px', fontWeight: '700', fontSize: '16px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(153,61,61,0.15)' }}>
                   Explore Care Plans →
                 </a>
-                <a href="#" style={{ background: 'transparent', color: '#1e2445', border: '1px solid #cbd5e1', padding: '14px 32px', borderRadius: '12px', fontWeight: '700', fontSize: '16px', textDecoration: 'none' }}>
+                <a href="#" style={{ background: 'white', color: '#1e2445', border: '1.5px solid #1e2445', padding: '14px 32px', borderRadius: '12px', fontWeight: '700', fontSize: '16px', textDecoration: 'none' }}>
                   Read the Research
                 </a>
               </>
@@ -98,7 +105,7 @@ const AboutSplit = ({ data }) => {
                 PROVEN IMPACT DATA
               </span>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', fontFamily: 'Sora' }}>
                 {(tag?.toLowerCase().includes('academic') || heading?.toLowerCase().includes('academic') ? [
                   { label: 'Depression in participants', value: '49%', down: true },
                   { label: 'Anxiety reported', value: '34%', down: true },
@@ -113,8 +120,8 @@ const AboutSplit = ({ data }) => {
                   const cleanValue = stat.value.replace(/[↑↓]/g, '').trim();
 
                   return (
-                    <div key={i} style={{ background: '#f8fafc', padding: '14px 20px', borderRadius: '16px', border: '1px solid #f1f5f9', transition: 'all 0.2s' }}>
-                      <span style={{ fontSize: '13px', fontWeight: '600', color: '#475569', display: 'block', marginBottom: '4px' }}>{stat.label}</span>
+                    <div key={i} style={{ background: '#e9eff3ff', padding: '14px 20px', borderRadius: '16px', border: '1px solid #f1f5f9', transition: 'all 0.2s' }}>
+                      <span style={{ fontSize: '13px', fontWeight: '600', color: '#475569', display: 'block', marginBottom: '4px', fontFamily: 'Roboto, sans-serif' }}>{stat.label}</span>
                       <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
                         <span style={{ fontSize: '28px', fontWeight: '800', color: '#1e2445' }}>{cleanValue}</span>
                         <span style={{ fontSize: '20px', fontWeight: '800', color: '#1e2445' }}>{isDown ? '↓' : '↑'}</span>

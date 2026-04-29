@@ -1,16 +1,18 @@
-import { Outfit, Playfair_Display } from "next/font/google";
+import { Roboto, Sora } from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({
+const roboto = Roboto({
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
   display: "swap",
-  variable: "--font-outfit",
+  variable: "--font-roboto",
 });
 
-const playfair = Playfair_Display({
+const sora = Sora({
   subsets: ["latin"],
+  weight: ["600", "700", "800"],
   display: "swap",
-  variable: "--font-playfair",
+  variable: "--font-sora",
 });
 
 export const metadata = {
@@ -20,7 +22,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${outfit.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${roboto.variable} ${sora.variable}`}>
       <body className="antialiased">
         {children}
       </body>

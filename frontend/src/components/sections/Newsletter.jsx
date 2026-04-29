@@ -6,11 +6,11 @@ import React, { useState } from 'react';
  * data: { heading, subtitle, inputPlaceholder, submitLabel, disclaimer }
  */
 const Newsletter = ({ data }) => {
-  if (!data) return null;
-  const { heading, subtitle, inputPlaceholder, submitLabel, disclaimer } = data;
-
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle, success, error
+
+  if (!data) return null;
+  const { heading, subtitle, inputPlaceholder, submitLabel, disclaimer } = data;
 
   const handleSubmit = (e) => {
     e.preventDefault();
