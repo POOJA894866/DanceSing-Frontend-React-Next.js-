@@ -172,10 +172,248 @@ class HeroBlock(blocks.StructBlock):
         icon  = "image"
         label = "Section 1 – Premium Hero"
 
+# ─────────────────────────────────────────────────────────────────
+# ABOUT HERO
+# ─────────────────────────────────────────────────────────────────
+
+class AboutHeroBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="The People and Purpose Behind the Platform")
+    heading = blocks.CharBlock(max_length=200, required=False, default="Founded On A Belief That Joy Is Medicine")
+    body = blocks.TextBlock(required=False)
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label="CTA Buttons")
+    images = blocks.ListBlock(ImageChooserBlock(), required=False, label="Carousel Images")
+    
+    bottom_bar = blocks.ListBlock(
+        blocks.CharBlock(max_length=100), 
+        required=False, 
+        label="Bottom Bar Items (e.g. ICO Registered)"
+    )
+
+    class Meta:
+        icon = "image"
+        label = "About Hero"
 
 # ─────────────────────────────────────────────────────────────────
-# SECTION 2 · PROGRAMS (3-col cards grid)
+# OUR STORY
 # ─────────────────────────────────────────────────────────────────
+
+class OurStoryBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="OUR STORY")
+    heading = blocks.CharBlock(max_length=200, required=False, default="A Simple Idea That Grew Into Something Much Bigger")
+    intro = blocks.TextBlock(required=False, help_text="Bold italic intro text")
+    body = blocks.TextBlock(required=False, help_text="Main body paragraphs. Use \\n for newlines.")
+    image = ImageChooserBlock(required=False)
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label="CTA Buttons")
+
+    class Meta:
+        icon = "doc-full"
+        label = "Our Story"
+
+# ─────────────────────────────────────────────────────────────────
+# LEADERSHIP SECTION
+# ─────────────────────────────────────────────────────────────────
+
+class LeadershipMemberBlock(blocks.StructBlock):
+    name = blocks.CharBlock(max_length=100, required=False)
+    role = blocks.CharBlock(max_length=200, required=False, help_text="e.g. CHIEF EXECUTIVE OFFICER · CO-FOUNDER")
+    bio = blocks.TextBlock(required=False, help_text="Use \\n for paragraph breaks")
+    image = ImageChooserBlock(required=False)
+    linkedin = blocks.URLBlock(required=False, default="#")
+
+    class Meta:
+        icon = "user"
+        label = "Team Member"
+
+
+class LeadershipBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="LEADERSHIP")
+    heading = blocks.CharBlock(max_length=200, required=False, default="The two people who started it all")
+    subtitle = blocks.TextBlock(required=False)
+    members = blocks.ListBlock(LeadershipMemberBlock(), min_num=0, label="Team Members")
+
+    class Meta:
+        icon = "group"
+        label = "Leadership Section"
+
+# ─────────────────────────────────────────────────────────────────
+# ACADEMIC FOUNDATION
+# ─────────────────────────────────────────────────────────────────
+
+class ResearchPartnerBlock(blocks.StructBlock):
+    number = blocks.CharBlock(max_length=4, required=False, help_text="e.g. 01, 02, 03")
+    name = blocks.CharBlock(max_length=200, required=False)
+    description = blocks.TextBlock(required=False)
+    tags = blocks.ListBlock(blocks.CharBlock(max_length=100), required=False, label="Tags (e.g. DEMENTIA & AGEING RESEARCH)")
+
+    class Meta:
+        icon = "doc-full"
+        label = "Research Partner"
+
+
+class AcademicFoundationBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="ACADEMIC FOUNDATION")
+    heading = blocks.CharBlock(max_length=200, required=False, default="Five Years Of Measurable Difference")
+    body = blocks.TextBlock(required=False, help_text="Use \\n for paragraph breaks")
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label="CTA Buttons")
+    partners = blocks.ListBlock(ResearchPartnerBlock(), min_num=0, label="Research Partners")
+
+    class Meta:
+        icon = "snippet"
+        label = "Academic Foundation"
+
+# ─────────────────────────────────────────────────────────────────
+# OUR MISSION
+# ─────────────────────────────────────────────────────────────────
+
+class MissionFeatureBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('movement', 'Movement'),
+            ('mindfulness', 'Mindfulness'),
+            ('music', 'Music'),
+            ('training', 'Training'),
+        ],
+        default='movement',
+        required=False,
+    )
+    title = blocks.CharBlock(max_length=100, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = "snippet"
+        label = "Mission Feature Card"
+
+
+class OurMissionBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="OUR PURPOSE")
+    heading = blocks.CharBlock(max_length=200, required=False, default="Our Mission")
+    subtitle = blocks.TextBlock(required=False)
+    body = blocks.TextBlock(required=False, help_text="Use \\n for paragraph breaks")
+    image = ImageChooserBlock(required=False)
+    features = blocks.ListBlock(MissionFeatureBlock(), min_num=0, label="Feature Cards (2x2 grid)")
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label="CTA Buttons")
+
+    class Meta:
+        icon = "doc-full"
+        label = "Our Mission"
+
+# ─────────────────────────────────────────────────────────────────
+# WHAT DRIVES US
+# ─────────────────────────────────────────────────────────────────
+
+class DriveCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('movement', 'Movement'),
+            ('radio', 'Radio'),
+            ('training', 'Training'),
+        ],
+        default='movement',
+        required=False,
+    )
+    accent = blocks.ChoiceBlock(
+        choices=[
+            ('#c75c4d', 'Red/Orange'),
+            ('#2f8080', 'Teal'),
+            ('#283466', 'Navy'),
+        ],
+        default='#c75c4d',
+        required=False,
+        label="Card Accent Colour",
+    )
+    title = blocks.CharBlock(max_length=150, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = "snippet"
+        label = "Drive Card"
+
+
+class WhatDrivesUsBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="WHAT DRIVES US")
+    heading = blocks.CharBlock(max_length=200, required=False, default="Empowering Every Older Adult To Thrive")
+    body = blocks.TextBlock(required=False, help_text="Use \\n for paragraph breaks")
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label="CTA Buttons")
+    cards = blocks.ListBlock(DriveCardBlock(), min_num=0, max_num=3, label="Feature Cards (max 3)")
+
+    class Meta:
+        icon = "list-ul"
+        label = "What Drives Us"
+
+# ─────────────────────────────────────────────────────────────────
+# GUIDING PRINCIPLES
+# ─────────────────────────────────────────────────────────────────
+
+class PrincipleCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('leaf', 'Leaf'),
+            ('handshake', 'Handshake'),
+            ('heartHand', 'Heart Hand'),
+            ('elevate', 'Elevate'),
+            ('community', 'Community'),
+        ],
+        default='leaf',
+        required=False,
+    )
+    title = blocks.CharBlock(max_length=150, required=False)
+    description = blocks.TextBlock(required=False, help_text="Supports **bold** text")
+
+    class Meta:
+        icon = "snippet"
+        label = "Principle Card"
+
+
+class GuidingPrinciplesBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="WHAT WE STAND FOR")
+    heading = blocks.CharBlock(max_length=200, required=False, default="The five principles\\nthat guide everything we do")
+    subtitle = blocks.TextBlock(required=False)
+    cards = blocks.ListBlock(PrincipleCardBlock(), min_num=0, max_num=5, label="Principle Cards (max 5)")
+
+    class Meta:
+        icon = "grip"
+        label = "Guiding Principles"
+
+# ─────────────────────────────────────────────────────────────────
+# OUR GALLERY
+# ─────────────────────────────────────────────────────────────────
+
+class GalleryImageBlock(blocks.StructBlock):
+    image = ImageChooserBlock(required=False)
+
+    class Meta:
+        icon = "image"
+        label = "Gallery Image"
+
+class OurGalleryBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="OUR GALLERY")
+    heading = blocks.CharBlock(max_length=200, required=False, default="Building Memories Together")
+    subtitle = blocks.TextBlock(required=False)
+    images = blocks.ListBlock(GalleryImageBlock(), min_num=0, max_num=8, label="Gallery Images (exactly 8 recommended)")
+
+    class Meta:
+        icon = "picture"
+        label = "Our Gallery"
+
+# ─────────────────────────────────────────────────────────────────
+# CONTACT SECTION
+# ─────────────────────────────────────────────────────────────────
+
+class ContactSectionBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default="COME AND SAY HELLO")
+    heading = blocks.CharBlock(max_length=200, required=False, default="We'd love to hear from you")
+    body = blocks.TextBlock(required=False)
+    email = blocks.CharBlock(max_length=150, required=False, default="support@dancesing.online")
+    response_time = blocks.CharBlock(max_length=150, required=False, default="We respond within 48 hours.")
+    rating_text = blocks.CharBlock(max_length=150, required=False, default="4.9 out of 5 Stars from Reviews")
+    form_heading = blocks.CharBlock(max_length=200, required=False, default="Get in touch with us")
+    form_subtext = blocks.CharBlock(max_length=200, required=False, default="We respond within 48 hours")
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label="CTA Buttons")
+
+    class Meta:
+        icon = "mail"
+        label = "Contact Section"
+
 
 class ProgramCardBlock(blocks.StructBlock):
     tag      = blocks.CharBlock(max_length=50, required=False, help_text="e.g. CARE SECTOR")
@@ -488,3 +726,34 @@ class HomePage(Page):
 
     class Meta:
         verbose_name = "Home Page"
+
+# ─────────────────────────────────────────────────────────────────
+# ABOUT PAGE MODEL
+# ─────────────────────────────────────────────────────────────────
+
+class AboutPage(Page):
+    body = StreamField(
+        [
+            ("about_hero", AboutHeroBlock()),
+            ("our_story", OurStoryBlock()),
+            ("leadership", LeadershipBlock()),
+            ("academic_foundation", AcademicFoundationBlock()),
+            ("our_mission", OurMissionBlock()),
+            ("what_drives_us", WhatDrivesUsBlock()),
+            ("guiding_principles", GuidingPrinciplesBlock()),
+            ("our_gallery", OurGalleryBlock()),
+            ("contact_section", ContactSectionBlock()),
+            ("feature_list", FeatureListBlock()),
+            ("testimonials", TestimonialsBlock()),
+            ("cta_banner", CtaBannerBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("body", classname="full"),
+    ]
+
+    class Meta:
+        verbose_name = "About Page"

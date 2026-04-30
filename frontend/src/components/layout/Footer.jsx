@@ -3,20 +3,20 @@ import React from 'react';
 const Footer = ({ data }) => {
   return (
     <footer style={{ background: '#283466', padding: '80px 0 40px 0', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-        
+      <div style={{ width: '100%', maxWidth: '100%', margin: '0 auto', padding: '0 5%', boxSizing: 'border-box' }}>
+
         {/* Main Columns Container (Border removed to match design) */}
-        <div style={{ padding: '48px 40px', display: 'grid', gridTemplateColumns: '1.2fr 1fr 1fr 1fr 1fr', gap: '40px', alignItems: 'start', marginBottom: '40px' }}>
-          
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr 1fr 1fr 1fr', gap: '40px', alignItems: 'start', marginBottom: '40px' }}>
+
           {/* Brand Column */}
-          <div style={{ textAlign: 'left' }}>
+          <div>
             <div style={{ marginBottom: '20px' }}>
               <img src="/images/logo-footer.png" alt="danceSing" style={{ height: '56px', width: 'auto', display: 'block' }} />
             </div>
-            <p style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.6', marginBottom: '24px' }}>
+            <p style={{ fontSize: '15px', textAlign: 'left', fontFamily: 'Roboto, sans-serif', lineHeight: '20.36px', fontWeight: 300, color: 'white', marginBottom: '15px' }}>
               Transforming Later Life Wellbeing through Music, Movement and Mindfulness. Registered with the Information Commissioner&apos;s Office (ICO), Reg. No. ZA754451.
             </p>
-            
+
             {/* Socials */}
             <div style={{ display: 'flex', gap: '8px' }}>
               {['f', 'X', 'y', 'i', 'in'].map((social, i) => (
@@ -68,6 +68,9 @@ const Footer = ({ data }) => {
           </div>
 
         </div>
+
+        {/* Divider Line */}
+        <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.1)', width: '100%', marginBottom: '24px' }}></div>
 
         {/* Bottom Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>

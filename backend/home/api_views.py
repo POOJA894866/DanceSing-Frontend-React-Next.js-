@@ -54,6 +54,156 @@ def serialize_hero(value, request):
         "floating_cta": serialize_cta(value.get("floating_cta")),
     }
 
+def serialize_about_hero(value, request):
+    images = []
+    for img in (value.get("images") or []):
+        data = get_image_data(img, request)
+        if data:
+            images.append(data)
+            
+    bottom_bar = []
+    for item in (value.get("bottom_bar") or []):
+        bottom_bar.append(str(item))
+        
+    return {
+        "type":       "about-hero",
+        "tag":        str(value.get("tag") or ""),
+        "heading":    str(value.get("heading") or ""),
+        "body":       str(value.get("body") or ""),
+        "ctas":       serialize_ctas(value.get("ctas")),
+        "images":     images,
+        "bottom_bar": bottom_bar,
+    }
+
+
+def serialize_leadership(value, request):
+    members = []
+    for m in (value.get('members') or []):
+        members.append({
+            'name': str(m.get('name') or ''),
+            'role': str(m.get('role') or ''),
+            'bio': str(m.get('bio') or ''),
+            'image': get_image_data(m.get('image'), request),
+            'linkedin': str(m.get('linkedin') or '#'),
+        })
+    return {
+        'type': 'leadership',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'members': members,
+    }
+
+
+def serialize_our_story(value, request):
+    return {
+        "type": "our-story",
+        "tag": str(value.get("tag") or ""),
+        "heading": str(value.get("heading") or ""),
+        "intro": str(value.get("intro") or ""),
+        "body": str(value.get("body") or ""),
+        "image": get_image_data(value.get("image"), request),
+        "ctas": serialize_ctas(value.get("ctas")),
+    }
+
+def serialize_academic_foundation(value, request):
+    partners = []
+    for p in (value.get('partners') or []):
+        tags = [str(t) for t in (p.get('tags') or [])]
+        partners.append({
+            'number': str(p.get('number') or ''),
+            'name': str(p.get('name') or ''),
+            'description': str(p.get('description') or ''),
+            'tags': tags,
+        })
+    return {
+        'type': 'academic-foundation',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'ctas': serialize_ctas(value.get('ctas')),
+        'partners': partners,
+    }
+
+def serialize_our_mission(value, request):
+    features = []
+    for f in (value.get('features') or []):
+        features.append({
+            'icon': str(f.get('icon') or 'movement'),
+            'title': str(f.get('title') or ''),
+            'description': str(f.get('description') or ''),
+        })
+    return {
+        'type': 'our-mission',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'body': str(value.get('body') or ''),
+        'image': get_image_data(value.get('image'), request),
+        'features': features,
+        'ctas': serialize_ctas(value.get('ctas')),
+    }
+
+def serialize_what_drives_us(value, request):
+    cards = []
+    for c in (value.get('cards') or []):
+        cards.append({
+            'icon': str(c.get('icon') or 'movement'),
+            'accent': str(c.get('accent') or '#c75c4d'),
+            'title': str(c.get('title') or ''),
+            'description': str(c.get('description') or ''),
+        })
+    return {
+        'type': 'what-drives-us',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'ctas': serialize_ctas(value.get('ctas')),
+        'cards': cards,
+    }
+
+def serialize_guiding_principles(value, request):
+    cards = []
+    for c in (value.get('cards') or []):
+        cards.append({
+            'icon': str(c.get('icon') or 'leaf'),
+            'title': str(c.get('title') or ''),
+            'description': str(c.get('description') or ''),
+        })
+    return {
+        'type': 'guiding-principles',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'cards': cards,
+    }
+
+def serialize_our_gallery(value, request):
+    images = []
+    for img in (value.get('images') or []):
+        images.append(get_image_data(img.get('image'), request))
+    return {
+        'type': 'our-gallery',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'images': images,
+    }
+
+def serialize_contact_section(value, request):
+    return {
+        'type': 'contact-section',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'email': str(value.get('email') or ''),
+        'response_time': str(value.get('response_time') or ''),
+        'rating_text': str(value.get('rating_text') or ''),
+        'form_heading': str(value.get('form_heading') or ''),
+        'form_subtext': str(value.get('form_subtext') or ''),
+        'ctas': serialize_ctas(value.get('ctas')),
+    }
+
 def serialize_programs_grid(value, request):
     tags = []
     for t in (value.get("category_tags") or []):
@@ -208,7 +358,16 @@ def serialize_newsletter(value, request):
 
 BLOCK_SERIALIZERS = {
     "hero":            serialize_hero,
-    "programs_grid":   serialize_programs_grid,
+    "about_hero":      serialize_about_hero,
+    'our_story':       serialize_our_story,
+    'leadership':      serialize_leadership,
+    'academic_foundation': serialize_academic_foundation,
+    'our_mission':         serialize_our_mission,
+    'what_drives_us':      serialize_what_drives_us,
+    'guiding_principles':  serialize_guiding_principles,
+    'our_gallery':         serialize_our_gallery,
+    'contact_section':     serialize_contact_section,
+    'programs_grid':   serialize_programs_grid,
     "cta_banner":      serialize_cta_banner,
     "about_split":     serialize_about_split,
     "steps_grid":      serialize_steps_grid,
@@ -267,3 +426,32 @@ def homepage_api(request):
         import traceback
         traceback.print_exc()
         return JsonResponse({"error": str(e)}, status=500)
+
+from home.models import AboutPage
+
+def aboutpage_api(request):
+    try:
+        aboutpage = AboutPage.objects.live().public().first()
+        if not aboutpage:
+            return JsonResponse({"error": "No about page found"}, status=404)
+
+        sections = []
+        for block in aboutpage.body:
+            serializer_fn = BLOCK_SERIALIZERS.get(block.block_type)
+            if serializer_fn:
+                data = serializer_fn(block.value, request)
+                if 'background' not in data and 'background' in block.value:
+                    data['background'] = block.value['background']
+                sections.append(data)
+
+        data = {
+            "id":       aboutpage.id,
+            "title":    aboutpage.title,
+            "sections": sections,
+        }
+        return JsonResponse(data)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({"error": str(e)}, status=500)
+

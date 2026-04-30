@@ -18,6 +18,23 @@ const FeaturesGrid = ({ data }) => {
 
   return (
     <section className="section features-grid" id={data.id || 'features-grid'} style={{ padding: '100px 0', background: '#ffffff' }}>
+      <style>{`
+        .feature-card {
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .feature-card-care:hover {
+          transform: translate(15px, -15px);
+          box-shadow: -15px 15px 0px #993d3d !important;
+        }
+        .feature-card-lifestyle:hover {
+          transform: translate(15px, -15px);
+          box-shadow: -15px 15px 0px #3b6b4c !important;
+        }
+        .feature-card-training:hover {
+          transform: translate(15px, -15px);
+          box-shadow: -15px 15px 0px #1c506b !important;
+        }
+      `}</style>
       <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
 
         <span style={{ fontSize: '13px', fontWeight: '800', letterSpacing: '0.15em', color: '#64748b', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>
@@ -35,7 +52,7 @@ const FeaturesGrid = ({ data }) => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', alignItems: 'stretch' }}>
 
           {/* Card 1: Care Sector */}
-          <div style={{ background: 'white', borderRadius: '24px', border: '2px solid #993d3d', padding: '32px 24px', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '480px', boxShadow: '0 10px 30px rgba(153,61,61,0.03)' }}>
+          <div className="feature-card feature-card-care" style={{ background: 'white', borderRadius: '24px', border: '2px solid #993d3d', padding: '32px 24px', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '480px', boxShadow: '0 10px 30px rgba(153,61,61,0.03)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
               <span style={{ fontSize: '12px', fontWeight: '800', color: '#993d3d', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>
                 CARE SECTOR
@@ -62,7 +79,7 @@ const FeaturesGrid = ({ data }) => {
           </div>
 
           {/* Card 2: Lifestyle */}
-          <div style={{ background: 'white', borderRadius: '24px', border: '2px solid #3b6b4c', padding: '32px 24px', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '480px', boxShadow: '0 10px 30px rgba(59,107,76,0.03)' }}>
+          <div className="feature-card feature-card-lifestyle" style={{ background: 'white', borderRadius: '24px', border: '2px solid #3b6b4c', padding: '32px 24px', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '480px', boxShadow: '0 10px 30px rgba(59,107,76,0.03)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
               <span style={{ fontSize: '12px', fontWeight: '800', color: '#3b6b4c', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>
                 LIFESTYLE
@@ -89,7 +106,7 @@ const FeaturesGrid = ({ data }) => {
           </div>
 
           {/* Card 3: Training */}
-          <div style={{ background: 'white', borderRadius: '24px', border: '2px solid #1c506b', padding: '32px 24px', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '480px', boxShadow: '0 10px 30px rgba(28,80,107,0.03)' }}>
+          <div className="feature-card feature-card-training" style={{ background: 'white', borderRadius: '24px', border: '2px solid #1c506b', padding: '32px 24px', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '480px', boxShadow: '0 10px 30px rgba(28,80,107,0.03)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
               <span style={{ fontSize: '12px', fontWeight: '800', color: '#1c506b', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: '16px' }}>
                 TRAINING
