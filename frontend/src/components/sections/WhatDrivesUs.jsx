@@ -20,7 +20,7 @@ const WhatDrivesUs = ({ data }) => {
   const heading = data.heading || 'Empowering Every Older Adult To Thrive';
   const body = data.body || "Our mission is to empower older adults, caregivers, and care communities by providing accessible, fun, and research-backed wellness solutions.\n\nWhether through our innovative movement programmes, 24/7 Well-being Radio, or expert-led caregiver training — everything we build is designed to enrich lives with joy, connection, and lasting wellbeing.";
   const ctas = data.ctas?.length > 0 ? data.ctas : [
-    { label: 'Explore Care Resources →', href: '#care', style: 'accent' },
+    { label: 'Explore Care Resources →', href: '/care', style: 'accent' },
     { label: 'Learn More', href: '#more', style: 'outline-white' },
   ];
   const cards = data.cards?.length > 0 ? data.cards : [

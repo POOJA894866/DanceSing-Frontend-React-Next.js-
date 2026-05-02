@@ -73,7 +73,7 @@ const FeaturesGrid = ({ data }) => {
               </div>
             </div>
 
-            <a href="#" style={{ background: '#993d3d', color: 'white', padding: '14px 28px', borderRadius: '12px', fontWeight: '700', fontSize: '15px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: 'fit-content', boxShadow: '0 10px 20px rgba(153,61,61,0.15)' }}>
+            <a href="/care" style={{ background: '#993d3d', color: 'white', padding: '14px 28px', borderRadius: '12px', fontWeight: '700', fontSize: '15px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: 'fit-content', boxShadow: '0 10px 20px rgba(153,61,61,0.15)' }}>
               Explore Care Resources →
             </a>
           </div>

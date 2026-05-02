@@ -1,7 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Navbar from '../layout/Navbar';
-import Footer from '../layout/Footer';
 import AboutHero from '../sections/AboutHero';
 import OurStory from '../sections/OurStory';
 import LeadershipSection from '../sections/LeadershipSection';
@@ -48,42 +46,38 @@ export default function AboutPage() {
   }
 
   return (
-    <>
-      <Navbar data={globalData?.navigation} />
-      <main>
-        {data?.sections?.map((sec, idx) => {
-          if (sec.type === 'about-hero') {
-            return <AboutHero key={idx} data={sec} />;
-          }
-          if (sec.type === 'our-story') {
-            return <OurStory key={idx} data={sec} />;
-          }
-          if (sec.type === 'leadership') {
-            return <LeadershipSection key={idx} data={sec} />;
-          }
-          if (sec.type === 'academic-foundation') {
-            return <AcademicFoundation key={idx} data={sec} />;
-          }
-          if (sec.type === 'our-mission') {
-            return <OurMission key={idx} data={sec} />;
-          }
-          if (sec.type === 'what-drives-us') {
-            return <WhatDrivesUs key={idx} data={sec} />;
-          }
-          if (sec.type === 'guiding-principles') {
-            return <GuidingPrinciples key={idx} data={sec} />;
-          }
-          if (sec.type === 'our-gallery') {
-            return <OurGallery key={idx} data={sec} />;
-          }
-          if (sec.type === 'contact-section') {
-            return <ContactSection key={idx} data={sec} />;
-          }
-          return null;
-        })}
-      </main>
-      <Footer data={globalData?.footer} />
-    </>
+    <main>
+      {data?.sections?.map((sec, idx) => {
+        if (sec.type === 'about-hero') {
+          return <AboutHero key={idx} data={sec} />;
+        }
+        if (sec.type === 'our-story') {
+          return <OurStory key={idx} data={sec} />;
+        }
+        if (sec.type === 'leadership') {
+          return <LeadershipSection key={idx} data={sec} />;
+        }
+        if (sec.type === 'academic-foundation') {
+          return <AcademicFoundation key={idx} data={sec} />;
+        }
+        if (sec.type === 'our-mission') {
+          return <OurMission key={idx} data={sec} />;
+        }
+        if (sec.type === 'what-drives-us') {
+          return <WhatDrivesUs key={idx} data={sec} />;
+        }
+        if (sec.type === 'guiding-principles') {
+          return <GuidingPrinciples key={idx} data={sec} />;
+        }
+        if (sec.type === 'our-gallery') {
+          return <OurGallery key={idx} data={sec} />;
+        }
+        if (sec.type === 'contact-section') {
+          return <ContactSection key={idx} data={sec} />;
+        }
+        return null;
+      })}
+    </main>
   );
 }
 
@@ -96,7 +90,7 @@ function getFallbackData() {
         heading: 'Founded On A Belief That Joy Is Medicine',
         body: 'We started danceSing because we saw what happened when older adults had access to music, movement, and real human connection every day — and we wanted every care community in the UK to feel that difference.',
         ctas: [
-          { label: 'Explore Care →', href: '#care', style: 'accent' },
+          { label: 'Explore Care →', href: '/care', style: 'accent' },
           { label: 'Explore Lifestyle →', href: '#lifestyle', style: 'green' },
           { label: 'Watch Demo', href: '#demo', style: 'outline-white' }
         ],
@@ -167,7 +161,7 @@ function getFallbackData() {
           { icon: 'training', title: 'Training', description: 'Expert-led workshops that build care staff confidence and capability.' }
         ],
         ctas: [
-          { label: 'Explore Care Resources →', href: '#care', style: 'accent' },
+          { label: 'Explore Care Resources →', href: '/care', style: 'accent' },
           { label: 'Explore Lifestyle →', href: '#lifestyle', style: 'green' }
         ]
       },
@@ -177,7 +171,7 @@ function getFallbackData() {
         heading: 'Empowering Every Older Adult To Thrive',
         body: 'Our mission is to empower older adults, caregivers, and care communities by providing accessible, fun, and research-backed wellness solutions.\n\nWhether through our innovative movement programmes, 24/7 Well-being Radio, or expert-led caregiver training — everything we build is designed to enrich lives with joy, connection, and lasting wellbeing.',
         ctas: [
-          { label: 'Explore Care Resources →', href: '#care', style: 'accent' },
+          { label: 'Explore Care Resources →', href: '/care', style: 'accent' },
           { label: 'Learn More', href: '#more', style: 'outline-white' }
         ],
         cards: [

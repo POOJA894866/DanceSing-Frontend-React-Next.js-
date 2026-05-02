@@ -7,10 +7,10 @@ const OurGallery = ({ data }) => {
   const tag = data.tag || 'OUR GALLERY';
   const heading = data.heading || 'Building Memories Together';
   const subtitle = data.subtitle || 'Discover how our wellbeing solutions bring movement, music, and connection to care environments and everyday life.';
-  
+
   // We'll split the images into two rows to match the screenshot collage.
   const images = data.images || [];
-  
+
   // Fill up to 8 images with placeholders if empty
   const galleryImages = Array.from({ length: 8 }).map((_, i) => images[i] || { src: '', alt: '' });
 
@@ -32,9 +32,9 @@ const OurGallery = ({ data }) => {
       position: 'relative',
     }}>
       {img?.src ? (
-        <img 
-          src={img.src} 
-          alt={img.alt || 'Gallery image'} 
+        <img
+          src={img.src}
+          alt={img.alt || 'Gallery image'}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
       ) : null}
@@ -69,7 +69,9 @@ const OurGallery = ({ data }) => {
 
       {/* Header Container */}
       <div style={{
-        maxWidth: '1200px',
+        maxWidth: '1412px',
+        fontFamily: 'Roboto',
+        fontWeight: '100',
         margin: '0 auto',
         padding: '0 5%',
         marginBottom: '50px',
@@ -78,29 +80,32 @@ const OurGallery = ({ data }) => {
       }}>
         <div style={{ maxWidth: '650px' }}>
           <span style={{
-            fontSize: '11px',
-            fontWeight: '700',
+            fontSize: '13px',
+            fontWeight: '500',
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#64748b',
+            color: 'black',
             display: 'block',
-            marginBottom: '16px',
+            marginBottom: '20px',
           }}>
             {tag}
           </span>
           <h2 style={{
             fontSize: 'clamp(32px, 4vw, 46px)',
             fontFamily: 'Sora, sans-serif',
-            fontWeight: '800',
+            fontWeight: '200',
             color: '#283466',
             lineHeight: '1.2',
-            marginBottom: '16px',
+            marginBottom: '20px',
+            width: '104%'
           }}>
             {heading}
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#334155',
+            color: 'black',
+            fontFamily: 'Roboto',
+            fontWeight: '200',
             lineHeight: '1.6',
           }}>
             {subtitle}

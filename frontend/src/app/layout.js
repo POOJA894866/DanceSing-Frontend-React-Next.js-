@@ -1,5 +1,6 @@
 import { Roboto, Sora } from "next/font/google";
 import "./globals.css";
+import GlobalLayout from "../components/layout/GlobalLayout";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -24,7 +25,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${roboto.variable} ${sora.variable}`}>
       <body className="antialiased">
-        {children}
+        <GlobalLayout>
+          {children}
+        </GlobalLayout>
       </body>
     </html>
   );

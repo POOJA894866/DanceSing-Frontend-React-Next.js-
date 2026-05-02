@@ -100,7 +100,7 @@ const AboutHero = ({ data }) => {
                 <a key={i} href={cta.href} style={btnStyle(cta.style)}>{cta.label}</a>
               )) : (
                 <>
-                  <a href="#care" style={{ ...btnStyle('#964B4B'), fontFamily: 'Roboto' }}>Explore Care →</a>
+                  <a href="/care" style={{ ...btnStyle('#964B4B'), fontFamily: 'Roboto' }}>Explore Care →</a>
                   <a href="#lifestyle" style={{ ...btnStyle('#3D634B'), fontFamily: 'Roboto' }}>Explore Lifestyle →</a>
                   <a href="#demo" style={{ ...btnStyle('#F2F4F3'), fontFamily: 'Roboto' }}>Watch Demo</a>
                 </>

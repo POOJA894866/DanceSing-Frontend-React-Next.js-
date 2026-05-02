@@ -86,7 +86,7 @@ const AboutSplit = ({ data }) => {
               </>
             ) : (
               <>
-                <a href="#" style={{ background: '#993d3d', color: 'white', padding: '14px 32px', borderRadius: '12px', fontWeight: '700', fontSize: '16px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(153,61,61,0.15)' }}>
+                <a href="/care" style={{ background: '#993d3d', color: 'white', padding: '14px 32px', borderRadius: '12px', fontWeight: '700', fontSize: '16px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 10px 20px rgba(153,61,61,0.15)' }}>
                   Explore Care Plans →
                 </a>
                 <a href="#" style={{ background: 'white', color: '#1e2445', border: '1.5px solid #1e2445', padding: '14px 32px', borderRadius: '12px', fontWeight: '700', fontSize: '16px', textDecoration: 'none' }}>

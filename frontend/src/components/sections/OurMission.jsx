@@ -31,7 +31,7 @@ const OurMission = ({ data }) => {
     { icon: 'training', title: 'Training', description: 'Expert-led workshops that build care staff confidence and capability.' },
   ];
   const ctas = data.ctas?.length > 0 ? data.ctas : [
-    { label: 'Explore Care Resources →', href: '#care', style: 'accent' },
+    { label: 'Explore Care Resources →', href: '/care', style: 'accent' },
     { label: 'Explore Lifestyle →', href: '#lifestyle', style: 'green' },
   ];
 

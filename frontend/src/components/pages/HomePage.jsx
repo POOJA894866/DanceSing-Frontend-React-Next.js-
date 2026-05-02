@@ -2,8 +2,6 @@
 
 import React from 'react';
 import { useHomePageData } from '../../hooks/useHomePageData';
-import Navbar from '../layout/Navbar';
-import Footer from '../layout/Footer';
 
 import Hero from '../sections/Hero';
 import ProgramsGrid from '../sections/ProgramsGrid';
@@ -51,28 +49,22 @@ export default function HomePage() {
   }
 
   const sections = data?.sections || [];
-  const navigation = data?.navigation;
-  const footer = data?.footer;
 
   return (
-    <>
-      <Navbar data={navigation} />
-      <main>
-        {sections.map((sec, idx) => {
-          const Component = componentMap[sec.type];
-          if (!Component) {
-            console.warn(`[HomePage] No component found for type: ${sec.type}`);
-            return null;
-          }
-          try {
-            return <Component key={sec.id || idx} data={sec} />;
-          } catch (err) {
-            console.error(`[HomePage] Error rendering section ${sec.type}:`, err);
-            return null;
-          }
-        })}
-      </main>
-      <Footer data={footer} />
-    </>
+    <main>
+      {sections.map((sec, idx) => {
+        const Component = componentMap[sec.type];
+        if (!Component) {
+          console.warn(`[HomePage] No component found for type: ${sec.type}`);
+          return null;
+        }
+        try {
+          return <Component key={sec.id || idx} data={sec} />;
+        } catch (err) {
+          console.error(`[HomePage] Error rendering section ${sec.type}:`, err);
+          return null;
+        }
+      })}
+    </main>
   );
 }

@@ -378,24 +378,32 @@ BLOCK_SERIALIZERS = {
     "newsletter":      serialize_newsletter,
 }
 
-from home.models import HomePage, NavigationSettings
+from home.models import HomePage, AboutPage, CarePage, NavigationSettings
+
+def get_navigation_data(page, request):
+    nav_settings = NavigationSettings.for_site(page.get_site())
+    nav_links = []
+    if nav_settings:
+        for link in nav_settings.links:
+            nav_links.append({
+                "label": link.value.get("label"),
+                "href": link.value.get("href"),
+            })
+    return {
+        "logo": get_image_data(nav_settings.logo, request) if nav_settings else None,
+        "logo_text": nav_settings.logo_text if nav_settings else "danceSing",
+        "links": nav_links,
+        "cta_label": nav_settings.cta_label if nav_settings else "Book a Demo",
+        "cta_href": nav_settings.cta_href if nav_settings else "#cta",
+        "login_label": nav_settings.login_label if nav_settings else "Login",
+        "login_href": nav_settings.login_href if nav_settings else "#login",
+    }
 
 def homepage_api(request):
     try:
         homepage = HomePage.objects.live().public().first()
         if not homepage:
             return JsonResponse({"error": "No home page found"}, status=404)
-
-        # Fetch site-specific navigation settings
-        nav_settings = NavigationSettings.for_site(homepage.get_site())
-        
-        nav_links = []
-        if nav_settings:
-            for link in nav_settings.links:
-                nav_links.append({
-                    "label": link.value.get("label"),
-                    "href": link.value.get("href"),
-                })
 
         sections = []
         for block in homepage.body:
@@ -411,15 +419,7 @@ def homepage_api(request):
             "id":       homepage.id,
             "title":    homepage.title,
             "sections": sections,
-            "navigation": {
-                "logo": get_image_data(nav_settings.logo, request) if nav_settings else None,
-                "logo_text": nav_settings.logo_text if nav_settings else "danceSing",
-                "links": nav_links,
-                "cta_label": nav_settings.cta_label if nav_settings else "Book a Demo",
-                "cta_href": nav_settings.cta_href if nav_settings else "#cta",
-                "login_label": nav_settings.login_label if nav_settings else "Login",
-                "login_href": nav_settings.login_href if nav_settings else "#login",
-            }
+            "navigation": get_navigation_data(homepage, request)
         }
         return JsonResponse(data)
     except Exception as e:
@@ -427,7 +427,7 @@ def homepage_api(request):
         traceback.print_exc()
         return JsonResponse({"error": str(e)}, status=500)
 
-from home.models import AboutPage
+
 
 def aboutpage_api(request):
     try:
@@ -448,6 +448,7 @@ def aboutpage_api(request):
             "id":       aboutpage.id,
             "title":    aboutpage.title,
             "sections": sections,
+            "navigation": get_navigation_data(aboutpage, request)
         }
         return JsonResponse(data)
     except Exception as e:
@@ -455,3 +456,257 @@ def aboutpage_api(request):
         traceback.print_exc()
         return JsonResponse({"error": str(e)}, status=500)
 
+
+# ─────────────────────────────────────────────────────────────────
+# CARE PAGE API
+# ─────────────────────────────────────────────────────────────────
+
+def serialize_care_feature_card(item):
+    return {
+        'icon': str(item.get('icon') or 'music'),
+        'title': str(item.get('title') or ''),
+        'description': str(item.get('description') or ''),
+        'color': str(item.get('color') or '#964B4B'),
+    }
+
+def serialize_care_hero(value, request):
+    features = [serialize_care_feature_card(f) for f in (value.get('features') or [])]
+    return {
+        'type': 'care-hero',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'image': get_image_data(value.get('image'), request),
+        'features': features,
+        'ctas': serialize_ctas(value.get('ctas')),
+    }
+
+def serialize_care_platform(value, request):
+    cards = []
+    for c in (value.get('cards') or []):
+        cards.append({
+            'title': str(c.get('title') or ''),
+            'description': str(c.get('description') or ''),
+            'image': get_image_data(c.get('image'), request),
+        })
+    return {
+        'type': 'care-platform',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'cards': cards,
+        'ctas': serialize_ctas(value.get('ctas')),
+    }
+
+def serialize_care_evidence(value, request):
+    cards = []
+    for c in (value.get('cards') or []):
+        items = []
+        for i in (c.get('items') or []):
+            items.append({
+                'title': str(i.get('title') or ''),
+                'text': str(i.get('text') or ''),
+            })
+        cards.append({
+            'icon': str(c.get('icon') or 'patient'),
+            'tag': str(c.get('tag') or ''),
+            'title': str(c.get('title') or ''),
+            'items': items,
+        })
+    return {
+        'type': 'care-evidence',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'cards': cards,
+    }
+
+def serialize_care_outcomes(value, request):
+    stats = []
+    for s in (value.get('stats') or []):
+        stats.append({
+            'label': str(s.get('label') or ''),
+            'value': str(s.get('value') or ''),
+            'trend': str(s.get('trend') or 'none'),
+        })
+    return {
+        'type': 'care-outcomes',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'partner_box_heading': str(value.get('partner_box_heading') or ''),
+        'partner_box_text': str(value.get('partner_box_text') or ''),
+        'ctas': serialize_ctas(value.get('ctas')),
+        'stats_tag': str(value.get('stats_tag') or ''),
+        'stats': stats,
+    }
+
+def serialize_care_consultation(value, request):
+    steps = []
+    for s in (value.get('steps') or []):
+        steps.append({
+            'number': str(s.get('number') or ''),
+            'title': str(s.get('title') or ''),
+            'description': str(s.get('description') or ''),
+        })
+        
+    audience_cards = []
+    for c in (value.get('audience_cards') or []):
+        audience_cards.append({
+            'icon': str(c.get('icon') or 'home-heart'),
+            'title': str(c.get('title') or ''),
+            'description': str(c.get('description') or ''),
+        })
+        
+    return {
+        'type': 'care-consultation',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'steps': steps,
+        'cta': serialize_cta(value.get('cta')),
+        'image': get_image_data(value.get('image'), request),
+        
+        'audience_heading': str(value.get('audience_heading') or ''),
+        'audience_body': str(value.get('audience_body') or ''),
+        'audience_cards': audience_cards,
+        'audience_cta': serialize_cta(value.get('audience_cta')),
+    }
+
+def serialize_care_stats(value, request):
+    stats = []
+    for s in (value.get('stats') or []):
+        stats.append({
+            'value': str(s.get('value') or ''),
+            'label': str(s.get('label') or ''),
+        })
+    return {
+        'type': 'care-stats',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'stats': stats,
+    }
+
+def serialize_care_features(value, request):
+    items = [serialize_care_feature_card(f) for f in (value.get('items') or [])]
+    return {
+        'type': 'care-features',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'items': items,
+    }
+
+def serialize_care_testimonials(value, request):
+    items = []
+    for item in (value.get('items') or []):
+        items.append({
+            'badge': str(item.get('badge') or 'CARE'),
+            'text': str(item.get('text') or ''),
+            'author': str(item.get('author') or ''),
+            'role': str(item.get('role') or ''),
+        })
+    return {
+        'type': 'care-testimonials',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'items': items,
+    }
+
+def serialize_care_cta(value, request):
+    return {
+        'type': 'care-cta',
+        'heading': str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'ctas': serialize_ctas(value.get('ctas')),
+    }
+
+
+
+def serialize_care_faq(value, request):
+    items = []
+    for item in (value.get('items') or []):
+        items.append({
+            'question': str(item.get('question') or ''),
+            'answer':   str(item.get('answer')   or ''),
+        })
+    return {
+        'type':             'care-faq',
+        'tag':              str(value.get('tag')              or ''),
+        'heading':          str(value.get('heading')          or ''),
+        'subtitle':         str(value.get('subtitle')         or ''),
+        'support_box_text': str(value.get('support_box_text') or ''),
+        'support_email':    str(value.get('support_email')    or ''),
+        'items':            items,
+    }
+
+
+def serialize_care_contact(value, request):
+    return {
+        'type': 'care-contact',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'email_label': str(value.get('email_label') or ''),
+        'email_address': str(value.get('email_address') or ''),
+        'response_label': str(value.get('response_label') or ''),
+        'response_text': str(value.get('response_text') or ''),
+        'rating_label': str(value.get('rating_label') or ''),
+        'rating_text': str(value.get('rating_text') or ''),
+        'button_1_label': str(value.get('button_1_label') or ''),
+        'button_1_link': str(value.get('button_1_link') or ''),
+        'button_2_label': str(value.get('button_2_label') or ''),
+        'button_2_link': str(value.get('button_2_link') or ''),
+        'form_heading': str(value.get('form_heading') or ''),
+        'form_response_text': str(value.get('form_response_text') or ''),
+        'form_button_label': str(value.get('form_button_label') or ''),
+    }
+
+
+CARE_BLOCK_SERIALIZERS = {
+    'care_hero': serialize_care_hero,
+    'care_platform': serialize_care_platform,
+    'care_evidence': serialize_care_evidence,
+    'care_outcomes': serialize_care_outcomes,
+    'care_consultation': serialize_care_consultation,
+    'care_stats': serialize_care_stats,
+    'care_features': serialize_care_features,
+    'care_testimonials': serialize_care_testimonials,
+    'care_faq': serialize_care_faq,
+    'care_contact': serialize_care_contact,
+    'care_cta': serialize_care_cta,
+    'contact_section': serialize_contact_section,
+    'testimonials': serialize_testimonials,
+    'faq_accordion': serialize_faq_accordion,
+    'newsletter': serialize_newsletter,
+}
+
+
+
+
+def carepage_api(request):
+    try:
+        carepage = CarePage.objects.live().public().first()
+        if not carepage:
+            return JsonResponse({"error": "No care page found"}, status=404)
+
+        sections = []
+        for block in carepage.body:
+            serializer_fn = CARE_BLOCK_SERIALIZERS.get(block.block_type)
+            if serializer_fn:
+                data = serializer_fn(block.value, request)
+                sections.append(data)
+
+        data = {
+            "id":       carepage.id,
+            "title":    carepage.title,
+            "sections": sections,
+            "navigation": get_navigation_data(carepage, request)
+        }
+        return JsonResponse(data)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({"error": str(e)}, status=500)

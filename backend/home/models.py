@@ -757,3 +757,301 @@ class AboutPage(Page):
 
     class Meta:
         verbose_name = "About Page"
+
+
+# ─────────────────────────────────────────────────────────────────
+# CARE PAGE
+# ─────────────────────────────────────────────────────────────────
+
+class CareFeatureCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('music', 'Music'),
+            ('movement', 'Movement'),
+            ('mindfulness', 'Mindfulness'),
+            ('training', 'Training'),
+            ('radio', 'Radio / 24⁷7'),
+            ('compliance', 'Compliance & Reporting'),
+        ],
+        default='music',
+        required=False,
+    )
+    title = blocks.CharBlock(max_length=150, required=False)
+    description = blocks.TextBlock(required=False)
+    color = blocks.CharBlock(max_length=20, required=False, default='#964B4B', help_text="Hex color e.g. #964B4B")
+
+    class Meta:
+        icon = 'snippet'
+        label = 'Feature Card'
+
+
+class CareHeroBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='Trusted by 200+ communities')
+    heading = blocks.CharBlock(max_length=300, required=False, default='Wellness That Enriches\nEvery Care Community')
+    body = blocks.TextBlock(required=False)
+    image = ImageChooserBlock(required=False)
+    features = blocks.ListBlock(CareFeatureCardBlock(), min_num=0, max_num=3, label='Floating Feature Cards (max 3)')
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon = 'image'
+        label = 'Care Hero'
+
+
+class CarePlatformCardBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=150, required=False)
+    description = blocks.TextBlock(required=False)
+    image = ImageChooserBlock(required=False)
+
+    class Meta:
+        icon = 'image'
+        label = 'Platform Card'
+
+
+class CarePlatformBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='MORE THAN A PROGRAMME')
+    heading = blocks.CharBlock(max_length=200, required=False, default='The Platform - The Heartbeat Of Your Community')
+    body = blocks.TextBlock(required=False, default='danceSing is more than a wellness tool. It is a central hub for community life — bringing people together, supporting staff, and creating an atmosphere your residents will genuinely look forward to every single day.')
+    cards = blocks.ListBlock(CarePlatformCardBlock(), min_num=0, max_num=4, label='Platform Cards (max 4)')
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon = 'list-ul'
+        label = 'Care Platform'
+
+
+class CareEvidenceListItemBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=False, help_text="e.g. Improved wellbeing")
+    text = blocks.TextBlock(required=False, help_text="e.g. Music, movement, and mindfulness...")
+
+    class Meta:
+        icon = 'tick'
+        label = 'List Item'
+
+class CareEvidenceCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(choices=[
+        ('patient', 'Patient'),
+        ('staff', 'Staff'),
+        ('leadership', 'Leadership'),
+        ('community', 'Community'),
+    ], default='patient', required=False)
+    tag = blocks.CharBlock(required=False, help_text="e.g. PATIENT")
+    title = blocks.CharBlock(required=False, help_text="e.g. Wellbeing, Belonging & Independence.")
+    items = blocks.ListBlock(CareEvidenceListItemBlock(), min_num=0, label='List Items')
+
+    class Meta:
+        icon = 'doc-full'
+        label = 'Evidence Card'
+
+class CareEvidenceBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='EVIDENCE')
+    heading = blocks.CharBlock(max_length=200, required=False, default='Why Care Resource Works')
+    body = blocks.TextBlock(required=False, default='Our platform is based on research and real-life experience. Through ongoing evaluation, our programmes have consistently demonstrated positive outcomes for resident wellbeing, engagement, and quality of life.')
+    cards = blocks.ListBlock(CareEvidenceCardBlock(), min_num=0, max_num=4, label='Evidence Cards (max 4)')
+
+    class Meta:
+        icon = 'success'
+        label = 'Care Evidence'
+
+class CareOutcomesStatBlock(blocks.StructBlock):
+    label = blocks.CharBlock(required=False, help_text="e.g. Depression in participants")
+    value = blocks.CharBlock(required=False, help_text="e.g. 49%")
+    trend = blocks.ChoiceBlock(choices=[('up', 'Up Arrow'), ('down', 'Down Arrow'), ('none', 'No Arrow')], default='down', required=False)
+
+    class Meta:
+        icon = 'arrow-up'
+        label = 'Stat Item'
+
+class CareOutcomesBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(required=False, default='UNIVERSITY VALIDATED OUTCOMES')
+    heading = blocks.CharBlock(required=False, default='Proven, research-backed results in 12 weeks')
+    body = blocks.TextBlock(required=False)
+    partner_box_heading = blocks.CharBlock(required=False, default='University of Stirling & Partner Institutions')
+    partner_box_text = blocks.CharBlock(required=False, default='Independently validated · 5+ year academic partnership')
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label='CTAs')
+    
+    stats_tag = blocks.CharBlock(required=False, default='PROVEN IMPACT DATA')
+    stats = blocks.ListBlock(CareOutcomesStatBlock(), min_num=0, label='Stats Grid')
+
+    class Meta:
+        icon = 'table'
+        label = 'Care Outcomes'
+
+class CareConsultationStepBlock(blocks.StructBlock):
+    number = blocks.CharBlock(required=False, help_text="e.g. 01")
+    title = blocks.CharBlock(required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = 'list-ol'
+        label = 'Step'
+
+class CareAudienceCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(choices=[
+        ('home-heart', 'Home with Heart'),
+        ('hospital', 'Hospital'),
+        ('clipboard-heart', 'Clipboard with Heart'),
+    ], default='home-heart', required=False)
+    title = blocks.CharBlock(required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = 'group'
+        label = 'Audience Card'
+
+class CareConsultationBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(required=False, default='BOOK A CONSULTATION')
+    heading = blocks.CharBlock(required=False, default="Let's talk about your care community")
+    body = blocks.TextBlock(required=False)
+    steps = blocks.ListBlock(CareConsultationStepBlock(), min_num=0, label='Steps')
+    cta = CtaBlock()
+    image = ImageChooserBlock(required=False)
+
+    audience_heading = blocks.CharBlock(required=False, default="Who is this right for?")
+    audience_body = blocks.TextBlock(required=False)
+    audience_cards = blocks.ListBlock(CareAudienceCardBlock(), min_num=0, label='Audience Cards')
+    audience_cta = CtaBlock(required=False)
+
+    class Meta:
+        icon = 'phone'
+        label = 'Care Consultation'
+
+class CareStatItemBlock(blocks.StructBlock):
+    value = blocks.CharBlock(max_length=30, required=False, help_text='e.g. 200+, 49%')
+    label = blocks.CharBlock(max_length=100, required=False)
+
+    class Meta:
+        icon = 'plus'
+        label = 'Stat Item'
+
+
+class CareStatsBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='OUR IMPACT')
+    heading = blocks.CharBlock(max_length=200, required=False, default='Measurable Results for Care Communities')
+    subtitle = blocks.TextBlock(required=False)
+    stats = blocks.ListBlock(CareStatItemBlock(), min_num=0, max_num=6, label='Statistics')
+
+    class Meta:
+        icon = 'snippet'
+        label = 'Care Stats'
+
+
+class CareFeaturesBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='WHAT WE OFFER')
+    heading = blocks.CharBlock(max_length=200, required=False, default='A Complete Wellness Solution for Care')
+    subtitle = blocks.TextBlock(required=False)
+    items = blocks.ListBlock(CareFeatureCardBlock(), min_num=0, max_num=6, label='Feature Cards (max 6)')
+
+    class Meta:
+        icon = 'grip'
+        label = 'Care Features Grid'
+
+
+class CareTestimonialItemBlock(blocks.StructBlock):
+    badge = blocks.CharBlock(max_length=50, required=False, default='CARE')
+    text = blocks.TextBlock()
+    author = blocks.CharBlock(max_length=100)
+    role = blocks.CharBlock(max_length=200, required=False)
+
+    class Meta:
+        icon = 'user'
+        label = 'Testimonial'
+
+
+class CareTestimonialsBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='WHAT CARE TEAMS SAY')
+    heading = blocks.CharBlock(max_length=200, required=False, default='Heard directly from the communities we serve')
+    subtitle = blocks.TextBlock(required=False, default="Real feedback from care managers, activities coordinators, researchers, and residents' families across the UK.")
+    items = blocks.ListBlock(CareTestimonialItemBlock(), min_num=0, label='Testimonials')
+
+    class Meta:
+        icon = 'group'
+        label = 'Care Testimonials'
+
+
+class CareFaqItemBlock(blocks.StructBlock):
+    question = blocks.CharBlock(required=False)
+    answer   = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon  = 'help'
+        label = 'FAQ Item'
+
+
+class CareFaqBlock(blocks.StructBlock):
+    tag              = blocks.CharBlock(required=False, default='SUPPORT')
+    heading          = blocks.CharBlock(required=False, default='Everything you need to know about Care')
+    subtitle         = blocks.TextBlock(required=False)
+    support_box_text = blocks.TextBlock(required=False, default="Can't find what you're looking for? Our team responds within 48 hours.")
+    support_email    = blocks.EmailBlock(required=False)
+    items            = blocks.ListBlock(CareFaqItemBlock(), min_num=0, label='FAQ Items')
+
+    class Meta:
+        icon  = 'help'
+        label = 'Care FAQ'
+
+
+class CareContactBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(required=False, default="GET STARTED")
+    heading = blocks.CharBlock(required=False, default="Ready to bring danceSing Care to your community?")
+    body = blocks.TextBlock(required=False, default="Book a free consultation and let's talk through how Music, Movement, and Mindfulness can transform daily life for your residents and team.")
+    email_label = blocks.CharBlock(required=False, default="Email ID:")
+    email_address = blocks.CharBlock(required=False, default="support@dancesing.online")
+    response_label = blocks.CharBlock(required=False, default="Response time:")
+    response_text = blocks.CharBlock(required=False, default="We respond within 48 hours.")
+    rating_label = blocks.CharBlock(required=False, default="Rating:")
+    rating_text = blocks.CharBlock(required=False, default="4.9 out of 5 Stars from Reviews")
+    
+    button_1_label = blocks.CharBlock(required=False, default="Book a Consultation →")
+    button_1_link = blocks.CharBlock(required=False, default="#book")
+    button_2_label = blocks.CharBlock(required=False, default="View Pricing")
+    button_2_link = blocks.CharBlock(required=False, default="#pricing")
+    
+    form_heading = blocks.CharBlock(required=False, default="Get in touch with us")
+    form_response_text = blocks.CharBlock(required=False, default="We respond within 48 hours")
+    form_button_label = blocks.CharBlock(required=False, default="Send Message →")
+
+    class Meta:
+        icon = 'mail'
+        label = 'Care Contact Form'
+
+
+class CareCtaBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(max_length=200, required=False, default='Ready to Enrich Your Care Community?')
+    subtitle = blocks.TextBlock(required=False)
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon = 'pick'
+        label = 'Care CTA Banner'
+
+
+class CarePage(Page):
+    body = StreamField(
+        [
+            ('care_hero', CareHeroBlock()),
+            ('care_platform', CarePlatformBlock()),
+            ('care_evidence', CareEvidenceBlock()),
+            ('care_outcomes', CareOutcomesBlock()),
+            ('care_consultation', CareConsultationBlock()),
+            ('care_stats', CareStatsBlock()),
+            ('care_features', CareFeaturesBlock()),
+            ('care_testimonials', CareTestimonialsBlock()),
+            ('care_faq', CareFaqBlock()),
+            ('care_contact', CareContactBlock()),
+            ('care_cta', CareCtaBlock()),
+            ('contact_section', ContactSectionBlock()),
+            ('testimonials', TestimonialsBlock()),
+            ('faq_accordion', FaqAccordionBlock()),
+            ('newsletter', NewsletterBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body', classname='full'),
+    ]
+
+    class Meta:
+        verbose_name = 'Care Page'

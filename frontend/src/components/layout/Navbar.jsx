@@ -2,8 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Navbar = ({ data }) => {
+  const pathname = usePathname();
   const links = (data?.links && data.links.length > 0) ? data.links : [
     { label: 'About Us', href: '/about' },
     { label: 'Resources', href: '#features' },
@@ -12,9 +14,15 @@ const Navbar = ({ data }) => {
     { label: 'Contact Us', href: '#newsletter' },
   ];
 
-  // Resolve href: internal paths use Next.js Link, same-page hashes use <a>
   const resolveHref = (label, href) => {
     if (label === 'About Us') return '/about';
+    if (label === 'Care' || label === 'Care Sector' || href === '/care') return '/care';
+    
+    // If it's a hash link, ensure it points to the homepage if we're not on it
+    if (href?.startsWith('#') && pathname !== '/') {
+      return `/${href}`;
+    }
+    
     return href || '#';
   };
 

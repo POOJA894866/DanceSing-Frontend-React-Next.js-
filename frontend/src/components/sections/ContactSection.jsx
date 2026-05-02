@@ -10,10 +10,10 @@ const ContactSection = ({ data }) => {
   const email = data.email || 'support@dancesing.online';
   const responseTime = data.response_time || 'We respond within 48 hours.';
   const ratingText = data.rating_text || '4.9 out of 5 Stars from Reviews';
-  
+
   const formHeading = data.form_heading || 'Get in touch with us';
   const formSubtext = data.form_subtext || 'We respond within 48 hours';
-  
+
   const ctas = data.ctas?.length > 0 ? data.ctas : [
     { label: 'Book a Demo →', href: '#demo', style: 'white' },
     { label: 'Contact Us', href: '#contact', style: 'outline-white' },
@@ -58,7 +58,7 @@ const ContactSection = ({ data }) => {
       justifyContent: 'center',
     }}>
       <div style={{
-        maxWidth: '1100px',
+        maxWidth: '1170px',
         width: '100%',
         borderRadius: '24px',
         display: 'flex',
@@ -69,16 +69,16 @@ const ContactSection = ({ data }) => {
         {/* ── Left Column ── */}
         <div style={{
           flex: '1',
-          background: '#232e58', // slightly darker navy
+          background: '#1a2142', // slightly darker navy
           padding: '60px 50px',
           color: 'white',
         }}>
           <span style={{
-            fontSize: '11px',
-            fontWeight: '700',
+            fontSize: '13px',
+            fontWeight: '500',
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.6)',
+            color: 'white',
             display: 'block',
             marginBottom: '16px',
           }}>
@@ -87,7 +87,7 @@ const ContactSection = ({ data }) => {
           <h2 style={{
             fontSize: 'clamp(32px, 4vw, 42px)',
             fontFamily: 'Sora, sans-serif',
-            fontWeight: '800',
+            fontWeight: '500',
             lineHeight: '1.2',
             marginBottom: '24px',
           }}>
@@ -96,6 +96,7 @@ const ContactSection = ({ data }) => {
           <p style={{
             fontSize: '15px',
             color: 'rgba(255,255,255,0.8)',
+            fontFamily: 'Roboto, sans-serif',
             lineHeight: '1.6',
             marginBottom: '32px',
           }}>
@@ -116,7 +117,7 @@ const ContactSection = ({ data }) => {
               <div style={{ display: 'flex', gap: '4px', color: '#e8a020' }}>
                 {[...Array(5)].map((_, i) => (
                   <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
               </div>
@@ -136,7 +137,7 @@ const ContactSection = ({ data }) => {
         {/* ── Right Column ── */}
         <div style={{
           flex: '1',
-          background: '#2c3970', // slightly lighter navy
+          background: '#283466', // slightly lighter navy
           padding: '60px 50px',
           color: 'white',
         }}>
@@ -155,9 +156,9 @@ const ContactSection = ({ data }) => {
               <input type="tel" placeholder="Phone" style={inputStyle} />
             </div>
             <input type="email" placeholder="Email address" style={inputStyle} />
-            <textarea 
-              placeholder="Tell us about your organisation and how we can help..." 
-              style={{ ...inputStyle, resize: 'none', minHeight: '120px' }} 
+            <textarea
+              placeholder="Tell us about your organisation and how we can help..."
+              style={{ ...inputStyle, resize: 'none', minHeight: '120px' }}
             />
 
             <div style={{

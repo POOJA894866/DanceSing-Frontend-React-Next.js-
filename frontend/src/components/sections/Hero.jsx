@@ -71,7 +71,7 @@ const Hero = ({ data }) => {
                 ) : (
                   /* Fallback hardcoded buttons if API has no ctas */
                   <>
-                    <a href="#programs" className="hero-btn hero-btn--accent">
+                    <a href="/care" className="hero-btn hero-btn--accent">
                       Explore Care Resources
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14m-7-7 7 7-7 7"/>

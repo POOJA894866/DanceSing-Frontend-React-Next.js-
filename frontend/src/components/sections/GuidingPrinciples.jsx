@@ -59,16 +59,17 @@ const GuidingPrinciples = ({ data }) => {
       padding: '90px 5%',
       fontFamily: 'system-ui, -apple-system, sans-serif',
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1500px', margin: '0 auto' }}>
 
         {/* ── Header ── */}
         <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 60px' }}>
           <span style={{
-            fontSize: '11px',
-            fontWeight: '700',
+            fontSize: '13px',
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: '600',
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: '#64748b',
+            color: 'black',
             display: 'block',
             marginBottom: '16px',
           }}>
@@ -77,7 +78,7 @@ const GuidingPrinciples = ({ data }) => {
           <h2 style={{
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontFamily: 'Sora, sans-serif',
-            fontWeight: '800',
+            fontWeight: '300',
             color: '#283466',
             lineHeight: '1.2',
             marginBottom: '20px',
@@ -87,10 +88,11 @@ const GuidingPrinciples = ({ data }) => {
           </h2>
           <p style={{
             fontSize: '15px',
-            color: '#334155',
+            color: 'black',
+            fontFamily: 'Roboto, sans-serif',
             lineHeight: '1.6',
             margin: '0 auto',
-            maxWidth: '600px',
+            maxWidth: '660px',
           }}>
             {subtitle}
           </p>
@@ -108,7 +110,7 @@ const GuidingPrinciples = ({ data }) => {
               <div key={i} style={{
                 background: 'white',
                 borderRadius: '16px',
-                padding: '30px 20px',
+                padding: '40px 30px',
                 position: 'relative',
                 boxShadow: '0 4px 15px rgba(0,0,0,0.04)',
                 borderTop: '6px solid #283466',
@@ -132,7 +134,8 @@ const GuidingPrinciples = ({ data }) => {
                 </h3>
                 <div style={{
                   fontSize: '13px',
-                  color: '#475569',
+                  color: 'black',
+                  fontFamily: 'Roboto, sans-serif',
                   lineHeight: '1.6',
                   flexGrow: 1,
                   position: 'relative',

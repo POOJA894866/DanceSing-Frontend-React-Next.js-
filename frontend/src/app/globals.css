@@ -36,7 +36,6 @@ body {
   color: var(--white);
   background: var(--navy);
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 main {
@@ -1195,6 +1194,7 @@ button {
   color: var(--navy);
   text-align: left;
   gap: 16px;
+  position: sticky;
 }
 
 .faq__question:hover {
