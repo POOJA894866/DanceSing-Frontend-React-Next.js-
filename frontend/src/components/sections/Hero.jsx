@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import StatsBar from './StatsBar';
 
 /**
@@ -28,8 +29,8 @@ const Hero = ({ data }) => {
         <div className="hero-premium__inner">
           {/* Main Hero Card */}
           <div className="hero-card">
-            {image?.src && (
-              <img src={image.src} alt={image.alt || 'Hero'} className="hero-card__bg" />
+            {(image?.src || true) && (
+              <img src={image?.src || '/images/pr3.jpg'} alt={image?.alt || 'Hero'} className="hero-card__bg" />
             )}
             <div className="hero-card__overlay" />
 
@@ -58,34 +59,42 @@ const Hero = ({ data }) => {
               {/* CTA Buttons */}
               <div className="hero-card__ctas">
                 {ctas?.length > 0 ? (
-                  ctas.map((cta, i) => (
-                    <a key={i} href={cta.href} className={`hero-btn hero-btn--${cta.style}`}>
-                      {cta.label}
-                      {(cta.style === 'accent' || cta.style === 'green') && (
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12h14m-7-7 7 7-7 7"/>
-                        </svg>
-                      )}
-                    </a>
-                  ))
+                  ctas.map((cta, i) => {
+                    let href = cta.href || '#';
+                    const labelLower = cta.label?.toLowerCase() || '';
+                    if (labelLower.includes('care')) href = '/care';
+                    else if (labelLower.includes('lifestyle')) href = '/lifestyle';
+                    else if (labelLower.includes('about')) href = '/about';
+
+                    return (
+                      <Link key={i} href={href} className={`hero-btn hero-btn--${cta.style}`}>
+                        {cta.label}
+                        {(cta.style === 'accent' || cta.style === 'green') && (
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M5 12h14m-7-7 7 7-7 7"/>
+                          </svg>
+                        )}
+                      </Link>
+                    );
+                  })
                 ) : (
                   /* Fallback hardcoded buttons if API has no ctas */
                   <>
-                    <a href="/care" className="hero-btn hero-btn--accent">
+                    <Link href="/care" className="hero-btn hero-btn--accent">
                       Explore Care Resources
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14m-7-7 7 7-7 7"/>
                       </svg>
-                    </a>
-                    <a href="#lifestyle" className="hero-btn hero-btn--green">
+                    </Link>
+                    <Link href="/lifestyle" className="hero-btn hero-btn--green">
                       Explore Lifestyle
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14m-7-7 7 7-7 7"/>
                       </svg>
-                    </a>
-                    <a href="#demo" className="hero-btn hero-btn--outline-white">
+                    </Link>
+                    <Link href="#demo" className="hero-btn hero-btn--outline-white">
                       Watch Demo
-                    </a>
+                    </Link>
                   </>
                 )}
               </div>

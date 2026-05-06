@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 
 const ICONS = {
   movement: (
@@ -32,7 +33,7 @@ const OurMission = ({ data }) => {
   ];
   const ctas = data.ctas?.length > 0 ? data.ctas : [
     { label: 'Explore Care Resources →', href: '/care', style: 'accent' },
-    { label: 'Explore Lifestyle →', href: '#lifestyle', style: 'green' },
+    { label: 'Explore Lifestyle →', href: '/lifestyle', style: 'green' },
   ];
 
   const btnStyle = (style) => {
@@ -182,11 +183,19 @@ const OurMission = ({ data }) => {
 
           {/* ── CTA Buttons ── */}
           <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-            {ctas.map((cta, i) => (
-              <a key={i} href={cta.href} style={btnStyle(cta.style)}>
-                {cta.label}
-              </a>
-            ))}
+            {ctas.map((cta, i) => {
+              let href = cta.href || '#';
+              const labelLower = cta.label?.toLowerCase() || '';
+              if (labelLower.includes('care')) href = '/care';
+              else if (labelLower.includes('lifestyle')) href = '/lifestyle';
+              else if (labelLower.includes('about')) href = '/about';
+
+              return (
+                <Link key={i} href={href} style={btnStyle(cta.style)}>
+                  {cta.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 

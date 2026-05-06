@@ -132,9 +132,9 @@ const AboutSplit = ({ data }) => {
               </div>
             </div>
           ) : (
-            image?.src && (
+            (image?.src || true) && (
               <div style={{ borderRadius: '32px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', border: '8px solid white' }}>
-                <img src={image.src} alt={image.alt || heading} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                <img src={image?.src || '/images/samll1.jpg'} alt={image?.alt || heading} style={{ width: '100%', height: 'auto', display: 'block' }} />
               </div>
             )
           )}

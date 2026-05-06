@@ -100,7 +100,7 @@ const FeaturesGrid = ({ data }) => {
               </div>
             </div>
 
-            <a href="#" style={{ background: '#3b6b4c', color: 'white', padding: '14px 28px', borderRadius: '12px', fontWeight: '700', fontSize: '15px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: 'fit-content', boxShadow: '0 10px 20px rgba(59,107,76,0.15)' }}>
+            <a href="/lifestyle" style={{ background: '#3b6b4c', color: 'white', padding: '14px 28px', borderRadius: '12px', fontWeight: '700', fontSize: '15px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: 'fit-content', boxShadow: '0 10px 20px rgba(59,107,76,0.15)' }}>
               Explore Lifestyle →
             </a>
           </div>
@@ -127,7 +127,7 @@ const FeaturesGrid = ({ data }) => {
               </div>
             </div>
 
-            <a href="#" style={{ background: '#1c506b', color: 'white', padding: '14px 28px', borderRadius: '12px', fontWeight: '700', fontSize: '15px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: 'fit-content', boxShadow: '0 10px 20px rgba(28,80,107,0.15)' }}>
+            <a href="/training" style={{ background: '#1c506b', color: 'white', padding: '14px 28px', borderRadius: '12px', fontWeight: '700', fontSize: '15px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: 'fit-content', boxShadow: '0 10px 20px rgba(28,80,107,0.15)' }}>
               Explore Training →
             </a>
           </div>

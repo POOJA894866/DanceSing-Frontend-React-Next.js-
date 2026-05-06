@@ -378,7 +378,7 @@ BLOCK_SERIALIZERS = {
     "newsletter":      serialize_newsletter,
 }
 
-from home.models import HomePage, AboutPage, CarePage, NavigationSettings
+from home.models import HomePage, AboutPage, CarePage, LifestylePage, TrainingPage, NavigationSettings
 
 def get_navigation_data(page, request):
     nav_settings = NavigationSettings.for_site(page.get_site())
@@ -704,6 +704,340 @@ def carepage_api(request):
             "title":    carepage.title,
             "sections": sections,
             "navigation": get_navigation_data(carepage, request)
+        }
+        return JsonResponse(data)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({"error": str(e)}, status=500)
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE PAGE API
+# ─────────────────────────────────────────────────────────────────
+
+def serialize_lifestyle_hero(value, request):
+    info_cards = []
+    for card in (value.get('info_cards') or []):
+        info_cards.append({
+            'position': str(card.get('position') or 'top'),
+            'heading':  str(card.get('heading')  or ''),
+            'text':     str(card.get('text')     or ''),
+        })
+    return {
+        'type':       'lifestyle-hero',
+        'tag':        str(value.get('tag')     or ''),
+        'heading':    str(value.get('heading') or ''),
+        'body':       str(value.get('body')    or ''),
+        'image':      get_image_data(value.get('image'), request),
+        'info_cards': info_cards,
+        'ctas':       serialize_ctas(value.get('ctas')),
+    }
+
+
+def serialize_lifestyle_programme(value, request):
+    cards = []
+    for card in (value.get('cards') or []):
+        cards.append({
+            'title': str(card.get('title') or ''),
+            'body':  str(card.get('body')  or ''),
+            'image': get_image_data(card.get('image'), request),
+        })
+    return {
+        'type':     'lifestyle-programme',
+        'tag':      str(value.get('tag')      or ''),
+        'heading':  str(value.get('heading')  or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'cards':    cards,
+        'ctas':     serialize_ctas(value.get('ctas')),
+    }
+
+def serialize_lifestyle_disciplines(value, request):
+    cards = []
+    for card in (value.get('cards') or []):
+        cards.append({
+            'icon_name':   str(card.get('icon_name') or 'pilates'),
+            'title':       str(card.get('title') or ''),
+            'description': str(card.get('description') or ''),
+        })
+    return {
+        'type':     'lifestyle-disciplines',
+        'tag':      str(value.get('tag') or ''),
+        'heading':  str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'cards':    cards,
+    }
+
+
+def serialize_lifestyle_evidence(value, request):
+    cards = []
+    for c in (value.get('cards') or []):
+        items = []
+        for i in (c.get('items') or []):
+            items.append({
+                'text': str(i.get('text') or ''),
+            })
+        cards.append({
+            'icon':  str(c.get('icon')  or 'individual'),
+            'tag':   str(c.get('tag')   or ''),
+            'title': str(c.get('title') or ''),
+            'items': items,
+        })
+    return {
+        'type':    'lifestyle-evidence',
+        'tag':     str(value.get('tag')     or ''),
+        'heading': str(value.get('heading') or ''),
+        'body':    str(value.get('body')    or ''),
+        'cards':   cards,
+    }
+
+
+def serialize_lifestyle_radio(value, request):
+    return {
+        'type':              'lifestyle-radio',
+        'tag':               str(value.get('tag')               or ''),
+        'heading':           str(value.get('heading')           or ''),
+        'body1':             str(value.get('body1')             or ''),
+        'body2':             str(value.get('body2')             or ''),
+        'badge_title':       str(value.get('badge_title')       or ''),
+        'badge_text':        str(value.get('badge_text')        or ''),
+        'image':             get_image_data(value.get('image'), request),
+        'now_playing_label': str(value.get('now_playing_label') or ''),
+        'track_title':       str(value.get('track_title')       or ''),
+        'station_name':      str(value.get('station_name')      or ''),
+        'ctas':              serialize_ctas(value.get('ctas')),
+    }
+
+
+def serialize_lifestyle_consultation(value, request):
+    steps = []
+    for step in (value.get('steps') or []):
+        steps.append({
+            'number':      str(step.get('number') or ''),
+            'title':       str(step.get('title') or ''),
+            'description': str(step.get('description') or ''),
+        })
+
+    audience_cards = []
+    for card in (value.get('audience_cards') or []):
+        audience_cards.append({
+            'icon':        str(card.get('icon') or 'home'),
+            'title':       str(card.get('title') or ''),
+            'description': str(card.get('description') or ''),
+        })
+
+    return {
+        'type':             'lifestyle-consultation',
+        'tag':              str(value.get('tag') or ''),
+        'heading':          str(value.get('heading') or ''),
+        'body':             str(value.get('body') or ''),
+        'image':            get_image_data(value.get('image'), request),
+        'cta':              serialize_cta(value.get('cta')),
+        'steps':            steps,
+        'audience_heading': str(value.get('audience_heading') or ''),
+        'audience_body':    str(value.get('audience_body') or ''),
+        'audience_cards':   audience_cards,
+        'audience_cta':     serialize_cta(value.get('audience_cta')),
+    }
+
+
+def serialize_lifestyle_testimonials(value, request):
+    items = []
+    for item in (value.get('items') or []):
+        items.append({
+            'pill_text': str(item.get('pill_text') or ''),
+            'quote':     str(item.get('quote') or ''),
+            'author':    str(item.get('author') or ''),
+        })
+    return {
+        'type':     'lifestyle-testimonials',
+        'tag':      str(value.get('tag') or ''),
+        'heading':  str(value.get('heading') or ''),
+        'subtitle': str(value.get('subtitle') or ''),
+        'items':    items,
+    }
+
+
+def serialize_lifestyle_faq(value, request):
+    items = []
+    for item in (value.get('items') or []):
+        items.append({
+            'question': str(item.get('question') or ''),
+            'answer':   str(item.get('answer') or ''),
+        })
+    return {
+        'type':             'lifestyle-faq',
+        'tag':              str(value.get('tag') or ''),
+        'heading':          str(value.get('heading') or ''),
+        'subtitle':         str(value.get('subtitle') or ''),
+        'footer_body':      str(value.get('footer_body') or ''),
+        'footer_link_text': str(value.get('footer_link_text') or ''),
+        'footer_link_url':  str(value.get('footer_link_url') or ''),
+        'items':            items,
+    }
+
+
+def serialize_lifestyle_contact(value, request):
+    return {
+        'type':          'lifestyle-contact',
+        'tag':           str(value.get('tag') or ''),
+        'heading':       str(value.get('heading') or ''),
+        'body':          str(value.get('body') or ''),
+        'email':         str(value.get('email') or ''),
+        'response_time': str(value.get('response_time') or ''),
+        'rating_text':   str(value.get('rating_text') or ''),
+        'ctas':          serialize_ctas(value.get('ctas')),
+        'form_heading':  str(value.get('form_heading') or ''),
+        'form_subtext':  str(value.get('form_subtext') or ''),
+    }
+
+
+LIFESTYLE_BLOCK_SERIALIZERS = {
+    'lifestyle_hero':        serialize_lifestyle_hero,
+    'lifestyle_programme':   serialize_lifestyle_programme,
+    'lifestyle_disciplines': serialize_lifestyle_disciplines,
+    'lifestyle_evidence':    serialize_lifestyle_evidence,
+    'lifestyle_radio':       serialize_lifestyle_radio,
+    'lifestyle_consultation': serialize_lifestyle_consultation,
+    'lifestyle_testimonials': serialize_lifestyle_testimonials,
+    'lifestyle_faq':         serialize_lifestyle_faq,
+    'lifestyle_contact':     serialize_lifestyle_contact,
+    # shared blocks
+    'cta_banner':    serialize_cta_banner,
+    'testimonials':  serialize_testimonials,
+    'faq_accordion': serialize_faq_accordion,
+    'newsletter':    serialize_newsletter,
+}
+
+
+def lifestylepage_api(request):
+    try:
+        page = LifestylePage.objects.live().public().first()
+        if not page:
+            return JsonResponse({'error': 'No lifestyle page found'}, status=404)
+
+        sections = []
+        for block in page.body:
+            serializer_fn = LIFESTYLE_BLOCK_SERIALIZERS.get(block.block_type)
+            if serializer_fn:
+                data = serializer_fn(block.value, request)
+                sections.append(data)
+
+        return JsonResponse({
+            'id':         page.id,
+            'title':      page.title,
+            'sections':   sections,
+            'navigation': get_navigation_data(page, request),
+        })
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({'error': str(e)}, status=500)
+
+# ------------------------------------------------------------------------------
+# TRAINING PAGE SERIALIZERS
+# ------------------------------------------------------------------------------
+
+def serialize_training_hero(value, request):
+    return {
+        'type': 'training-hero',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'image': get_image_data(value.get('image'), request),
+        'floating_cards': [
+            {
+                'title': str(card.get('title') or ''),
+                'description': str(card.get('description') or '')
+            } for card in value.get('floating_cards', [])
+        ],
+        'ctas': [
+            {
+                'label': str(cta.get('label') or ''),
+                'href': str(cta.get('href') or ''),
+                'style': str(cta.get('style') or '')
+            } for cta in value.get('ctas', [])
+        ]
+    }
+
+def serialize_training_platform(value, request):
+    return {
+        'type': 'training-platform',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'cards': [
+            {
+                'image': get_image_data(card.get('image'), request),
+                'title': str(card.get('title') or ''),
+                'description': str(card.get('description') or '')
+            } for card in value.get('cards', [])
+        ],
+        'ctas': [
+            {
+                'label': str(cta.get('label') or ''),
+                'href': str(cta.get('href') or ''),
+                'style': str(cta.get('style') or '')
+            } for cta in value.get('ctas', [])
+        ]
+    }
+
+def serialize_training_journey(value, request):
+    cert_data = value.get('certificate') or {}
+    return {
+        'type': 'training-journey',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'certificate': {
+            'title': str(cert_data.get('title') or ''),
+            'description': str(cert_data.get('description') or '')
+        } if cert_data else None,
+        'steps': [
+            {
+                'number': str(step.get('number') or ''),
+                'title': str(step.get('title') or ''),
+                'description': str(step.get('description') or ''),
+                'duration': str(step.get('duration') or '')
+            } for step in value.get('steps', [])
+        ],
+        'ctas': [
+            {
+                'label': str(cta.get('label') or ''),
+                'href': str(cta.get('href') or ''),
+                'style': str(cta.get('style') or '')
+            } for cta in value.get('ctas', [])
+        ]
+    }
+
+TRAINING_BLOCK_SERIALIZERS = {
+    'training_hero': serialize_training_hero,
+    'training_platform': serialize_training_platform,
+    'training_journey': serialize_training_journey,
+    'cta_banner': serialize_cta_banner,
+    'testimonials': serialize_testimonials,
+    'faq_accordion': serialize_faq_accordion,
+    'newsletter': serialize_newsletter,
+    'contact_section': serialize_contact_section,
+}
+
+def trainingpage_api(request):
+    try:
+        trainingpage = TrainingPage.objects.live().public().first()
+        if not trainingpage:
+            return JsonResponse({"error": "No training page found"}, status=404)
+
+        sections = []
+        for block in trainingpage.body:
+            block_type = block.block_type
+            serializer = TRAINING_BLOCK_SERIALIZERS.get(block_type)
+            if serializer:
+                sections.append(serializer(block.value, request))
+
+        data = {
+            "id": trainingpage.id,
+            "title": trainingpage.title,
+            "navigation": get_navigation_data(trainingpage, request),
+            "sections": sections
         }
         return JsonResponse(data)
     except Exception as e:

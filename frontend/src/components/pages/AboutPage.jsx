@@ -91,7 +91,7 @@ function getFallbackData() {
         body: 'We started danceSing because we saw what happened when older adults had access to music, movement, and real human connection every day — and we wanted every care community in the UK to feel that difference.',
         ctas: [
           { label: 'Explore Care →', href: '/care', style: 'accent' },
-          { label: 'Explore Lifestyle →', href: '#lifestyle', style: 'green' },
+          { label: 'Explore Lifestyle →', href: '/lifestyle', style: 'green' },
           { label: 'Watch Demo', href: '#demo', style: 'outline-white' }
         ],
         bottom_bar: [
@@ -162,7 +162,7 @@ function getFallbackData() {
         ],
         ctas: [
           { label: 'Explore Care Resources →', href: '/care', style: 'accent' },
-          { label: 'Explore Lifestyle →', href: '#lifestyle', style: 'green' }
+          { label: 'Explore Lifestyle →', href: '/lifestyle', style: 'green' }
         ]
       },
       {

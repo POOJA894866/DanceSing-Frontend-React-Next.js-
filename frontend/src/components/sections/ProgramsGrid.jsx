@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import Button from '../common/Button';
 
 /**
@@ -76,7 +77,7 @@ const ProgramsGrid = ({ data }) => {
                   padding: '15px 10px', // Properly aligned with 32px left/right, and 24px top/bottom spacing
                 }}>
                   <div style={{ width: '100%', borderRadius: '20px', overflow: 'hidden', aspectRatio: '16/10', border: 'none' }}>
-                    <img src={card.image?.src || '/placeholder.jpg'} alt={card.tag} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={card.image?.src || '/images/pr2.jpg'} alt={card.tag} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                 </div>
 
@@ -93,9 +94,9 @@ const ProgramsGrid = ({ data }) => {
                     ))}
                   </ul>
 
-                  <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: color, fontWeight: '700', fontSize: '15px', textDecoration: 'none', marginTop: 'auto' }}>
-                    Explore danceSing  {card.tag.replace('danceSing ', '')} →
-                  </a>
+                  <Link href={isCare ? "/care" : isLifestyle ? "/lifestyle" : "#"} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: color, fontWeight: '700', fontSize: '15px', textDecoration: 'none', marginTop: 'auto' }}>
+                    Explore danceSing {card.tag.replace('danceSing ', '')} →
+                  </Link>
                 </div>
               </div>
             );

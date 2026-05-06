@@ -37,7 +37,13 @@ const OurGallery = ({ data }) => {
           alt={img.alt || 'Gallery image'}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
-      ) : null}
+      ) : (
+        <img
+          src={`/images/row${idx < 4 ? idx + 1 : idx + 7}.png`}
+          alt="Gallery image"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      )}
     </div>
   );
 

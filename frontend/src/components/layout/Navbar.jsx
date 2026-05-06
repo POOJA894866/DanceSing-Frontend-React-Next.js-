@@ -17,12 +17,13 @@ const Navbar = ({ data }) => {
   const resolveHref = (label, href) => {
     if (label === 'About Us') return '/about';
     if (label === 'Care' || label === 'Care Sector' || href === '/care') return '/care';
-    
+    if (label === 'Lifestyle' || label === 'Lifestyle Page' || href === '/lifestyle') return '/lifestyle';
+
     // If it's a hash link, ensure it points to the homepage if we're not on it
     if (href?.startsWith('#') && pathname !== '/') {
       return `/${href}`;
     }
-    
+
     return href || '#';
   };
 
@@ -63,18 +64,42 @@ const Navbar = ({ data }) => {
           {links.map((link, idx) => {
             const href = resolveHref(link.label, link.href);
             const isInternal = href.startsWith('/');
+            const isResources = link.label === 'Resources';
+
+            const linkContent = (
+              <>
+                {link.label}
+                {isResources && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '4px' }}>
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                )}
+              </>
+            );
+
+            if (isResources) {
+              return (
+                <div key={idx} className="nav__dropdown-container" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                  <a href={href} className="nav__link">
+                    {linkContent}
+                  </a>
+                  <div className="nav__dropdown-menu">
+                    <Link href="/care" className="nav__dropdown-item">Care</Link>
+                    <Link href="/lifestyle" className="nav__dropdown-item">Lifestyle</Link>
+                    <Link href="/radio" className="nav__dropdown-item">On Air Radio</Link>
+                    <Link href="/training" className="nav__dropdown-item">Training</Link>
+                  </div>
+                </div>
+              );
+            }
+
             return isInternal ? (
               <Link key={idx} href={href} className="nav__link">
                 {link.label}
               </Link>
             ) : (
               <a key={idx} href={href} className="nav__link">
-                {link.label}
-                {link.label === 'Resources' && (
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '4px' }}>
-                    <path d="m6 9 6 6 6-6"/>
-                  </svg>
-                )}
+                {linkContent}
               </a>
             );
           })}
@@ -95,6 +120,49 @@ const Navbar = ({ data }) => {
           </a>
         </div>
       </div>
+      <style>{`
+        .nav__dropdown-container:hover .nav__dropdown-menu {
+          display: flex;
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+        .nav__dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: -12px;
+          background: #283466;
+          border-radius: 8px;
+          padding: 8px 20px;
+          display: flex;
+          flex-direction: column;
+          min-width: 160px;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(8px);
+          transition: all 0.2s ease;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+          z-index: 100;
+          margin-top: 6px;
+        }
+        .nav__dropdown-item {
+          color: white;
+          text-decoration: none;
+          font-family: 'Sora', sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          transition: color 0.2s ease, opacity 0.2s ease;
+        }
+        .nav__dropdown-item:last-child {
+          border-bottom: none;
+        }
+        .nav__dropdown-item:hover {
+          color: #a7d3bd;
+          opacity: 0.9;
+        }
+      `}</style>
     </nav>
   );
 };

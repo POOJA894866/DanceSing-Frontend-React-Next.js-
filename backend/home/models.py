@@ -1055,3 +1055,396 @@ class CarePage(Page):
 
     class Meta:
         verbose_name = 'Care Page'
+
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE PAGE
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleInfoCardBlock(blocks.StructBlock):
+    """One of the three floating info cards overlaid on the hero image."""
+    position = blocks.ChoiceBlock(
+        choices=[
+            ('top', 'Top (above image)'),
+            ('right', 'Right (mid-right)'),
+            ('bottom', 'Bottom-left'),
+        ],
+        default='top',
+        required=False,
+        help_text='Visual position of this card over the hero image',
+    )
+    heading = blocks.CharBlock(max_length=100, required=False, help_text='e.g. Six Wellness Disciplines')
+    text    = blocks.TextBlock(required=False, help_text='Short description shown in italic below the heading')
+
+    class Meta:
+        icon  = 'snippet'
+        label = 'Info Card'
+
+
+class LifestyleHeroBlock(blocks.StructBlock):
+    tag        = blocks.CharBlock(max_length=100, required=False, default='Wellness for Every Stage of Life')
+    heading    = blocks.CharBlock(max_length=300, required=False, default='Holistic Wellness,\nAccessible Anytime,\nAnywhere')
+    body       = blocks.TextBlock(required=False)
+    image      = ImageChooserBlock(required=False, help_text='Upload the hero image (leave empty to show placeholder)')
+    info_cards = blocks.ListBlock(LifestyleInfoCardBlock(), min_num=0, max_num=3, label='Floating Info Cards (max 3)')
+    ctas       = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon  = 'image'
+        label = 'Lifestyle Hero'
+
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE PROGRAMME BLOCK
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleProgrammeCardBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=120, required=False)
+    body  = blocks.TextBlock(required=False)
+    image = ImageChooserBlock(required=False, help_text='Leave empty to show placeholder')
+
+    class Meta:
+        icon  = 'doc-full'
+        label = 'Programme Card'
+
+
+class LifestyleProgrammeBlock(blocks.StructBlock):
+    tag      = blocks.CharBlock(max_length=80,  required=False, default='THE PROGRAMME')
+    heading  = blocks.CharBlock(max_length=200, required=False, default='Wellness For Every Stage Of Life')
+    subtitle = blocks.TextBlock(required=False)
+    cards    = blocks.ListBlock(LifestyleProgrammeCardBlock(), min_num=1, max_num=6, label='Feature Cards')
+    ctas     = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon  = 'list-ul'
+        label = 'Lifestyle Programme'
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE DISCIPLINES BLOCK
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleDisciplineCardBlock(blocks.StructBlock):
+    icon_name = blocks.ChoiceBlock(
+        choices=[
+            ('pilates', 'Pilates'),
+            ('yoga', 'Yoga'),
+            ('dance', 'Dance Fitness'),
+            ('meditation', 'Meditation'),
+            ('singing', 'Singing'),
+            ('nutrition', 'Nutrition'),
+        ],
+        required=False,
+        default='pilates',
+        help_text='Select the icon for this discipline'
+    )
+    title = blocks.CharBlock(max_length=100)
+    description = blocks.TextBlock()
+
+    class Meta:
+        icon = 'check'
+        label = 'Discipline Card'
+
+
+class LifestyleDisciplinesBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='SIX DISCIPLINES, ONE PLATFORM')
+    heading = blocks.CharBlock(max_length=200, required=False, default='Every dimension of wellbeing, in one place')
+    subtitle = blocks.TextBlock(required=False, default='From physical movement to emotional calm — our six wellness disciplines cover every aspect of a healthy, connected, independent life.')
+    cards = blocks.ListBlock(LifestyleDisciplineCardBlock(), min_num=1, max_num=6, label='Discipline Cards')
+
+    class Meta:
+        icon = 'grip'
+        label = 'Lifestyle Disciplines'
+
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE EVIDENCE BLOCK ("Why Care Resource Works" style)
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleEvidenceListItemBlock(blocks.StructBlock):
+    text = blocks.TextBlock(required=False, help_text='Bullet point text')
+
+    class Meta:
+        icon = 'tick'
+        label = 'Bullet Item'
+
+
+class LifestyleEvidenceCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('individual',   'Individual'),
+            ('workspace',    'Workspace Teams'),
+            ('community',    'Community Groups'),
+            ('organisation', 'Organisations'),
+        ],
+        default='individual',
+        required=False,
+    )
+    tag   = blocks.CharBlock(required=False, help_text='e.g. INDIVIDUAL')
+    title = blocks.CharBlock(required=False, help_text='e.g. Personal Wellbeing At Home')
+    items = blocks.ListBlock(LifestyleEvidenceListItemBlock(), min_num=0, label='Bullet Items')
+
+    class Meta:
+        icon  = 'doc-full'
+        label = 'Evidence Card'
+
+
+class LifestyleEvidenceBlock(blocks.StructBlock):
+    tag     = blocks.CharBlock(max_length=100, required=False, default='EVIDENCE')
+    heading = blocks.CharBlock(max_length=200, required=False, default='Why Care Resource Works')
+    body    = blocks.TextBlock(required=False, default='Our platform is based on research and real-life experience. Through ongoing evaluation, our programmes have consistently demonstrated positive outcomes for resident wellbeing, engagement, and quality of life.')
+    cards   = blocks.ListBlock(LifestyleEvidenceCardBlock(), min_num=0, max_num=4, label='Evidence Cards (max 4)')
+
+    class Meta:
+        icon  = 'success'
+        label = 'Lifestyle Evidence'
+
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE RADIO BLOCK (24/7 Well-being Radio split section)
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleRadioBlock(blocks.StructBlock):
+    tag     = blocks.CharBlock(max_length=100, required=False, default='SIX DISCIPLINES, ONE PLATFORM')
+    heading = blocks.CharBlock(max_length=200, required=False, default='24/7 Well-being Radio — motivation, anytime')
+    body1   = blocks.TextBlock(required=False, default='Included with every Lifestyle plan — danceSing On Air is a 24/7 commercial-free radio station with uplifting music, mindfulness programming, and mood-boosting content curated specifically for older adults.')
+    body2   = blocks.TextBlock(required=False, default='No session to plan. No video to follow. Just switch it on and let it lift the room.')
+    badge_title = blocks.CharBlock(max_length=200, required=False, default='University of Stirling & Partner Institutions')
+    badge_text  = blocks.TextBlock(required=False, default='Proven stress reduction and long-term health benefits · 5+ years')
+    image   = ImageChooserBlock(required=False, help_text='Leave empty to show placeholder')
+    now_playing_label = blocks.CharBlock(max_length=100, required=False, default='NOW PLAYING · DANCESING ON AIR')
+    track_title       = blocks.CharBlock(max_length=200, required=False, default='Moods of the Morning — Classical Favourites')
+    station_name      = blocks.CharBlock(max_length=200, required=False, default='danceSing Wellness Radio · Daily programme')
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon  = 'media'
+        label = 'Lifestyle Radio (24/7)'
+
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE CONSULTATION BLOCK ("Find the right Lifestyle plan for you")
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleConsultationStepBlock(blocks.StructBlock):
+    number = blocks.CharBlock(max_length=10, required=False, help_text='e.g. 01')
+    title  = blocks.CharBlock(max_length=200, required=False)
+    description = blocks.TextBlock(required=False)
+
+class LifestyleConsultationAudienceCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('home',      'Home'),
+            ('workplace', 'Workplace'),
+            ('groups',    'Groups'),
+        ],
+        default='home',
+        required=False,
+    )
+    title = blocks.CharBlock(max_length=200, required=False)
+    description = blocks.TextBlock(required=False)
+
+class LifestyleConsultationBlock(blocks.StructBlock):
+    tag     = blocks.CharBlock(max_length=100, required=False, default='GET STARTED')
+    heading = blocks.CharBlock(max_length=200, required=False, default='Find the right Lifestyle plan for you')
+    body    = blocks.TextBlock(required=False, default='Whether you\'re joining as an individual, bringing Lifestyle to a workplace team, or rolling it out across a multi-site organisation — we\'ll help you find the right fit.')
+    image   = ImageChooserBlock(required=False, help_text='Upload the right-side image')
+    cta     = CtaBlock(required=False, label='CTA Button')
+    steps   = blocks.ListBlock(LifestyleConsultationStepBlock(), min_num=0, label='Consultation Steps')
+
+    audience_heading = blocks.CharBlock(max_length=200, required=False, default='Is Lifestyle right for you?')
+    audience_body    = blocks.TextBlock(required=False, default='danceSing Lifestyle is for anyone who wants accessible, high-quality wellness content — at home, at work, or in the community.')
+    audience_cards   = blocks.ListBlock(LifestyleConsultationAudienceCardBlock(), min_num=0, max_num=3, label='Audience Cards (max 3)')
+    audience_cta     = CtaBlock(required=False, label='Audience CTA Button')
+
+    class Meta:
+        icon  = 'group'
+        label = 'Lifestyle Consultation'
+
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE TESTIMONIALS BLOCK ("Heard directly from...")
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleTestimonialItemBlock(blocks.StructBlock):
+    pill_text = blocks.CharBlock(max_length=50, required=False, default='CARE')
+    quote     = blocks.TextBlock(required=False)
+    author    = blocks.CharBlock(max_length=200, required=False)
+
+class LifestyleTestimonialsBlock(blocks.StructBlock):
+    tag      = blocks.CharBlock(max_length=100, required=False, default='WHAT CARE TEAMS SAY')
+    heading  = blocks.CharBlock(max_length=200, required=False, default='Heard directly from\nthe communities we serve')
+    subtitle = blocks.TextBlock(required=False, default='Real feedback from care managers, activities coordinators, researchers, and residents\' families across the UK.')
+    items    = blocks.ListBlock(LifestyleTestimonialItemBlock(), min_num=0, label='Testimonial Cards')
+
+    class Meta:
+        icon  = 'openquote'
+        label = 'Lifestyle Testimonials'
+
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE FAQ BLOCK ("Everything you need to know...")
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleFaqItemBlock(blocks.StructBlock):
+    question = blocks.CharBlock(max_length=300, required=False)
+    answer   = blocks.TextBlock(required=False)
+
+class LifestyleFaqBlock(blocks.StructBlock):
+    tag              = blocks.CharBlock(max_length=100, required=False, default='SUPPORT')
+    heading          = blocks.CharBlock(max_length=200, required=False, default='Everything you need\nto know about Care')
+    subtitle         = blocks.TextBlock(required=False, default='Answers to the questions care managers, activities coordinators, and team leaders ask us most before getting started.')
+    footer_body      = blocks.TextBlock(required=False, default='Can\'t find what you\'re looking for? Our team responds within 48 hours.')
+    footer_link_text = blocks.CharBlock(max_length=100, required=False, default='support@dancesing.online →')
+    footer_link_url  = blocks.CharBlock(max_length=255, required=False, default='mailto:support@dancesing.online')
+    items            = blocks.ListBlock(LifestyleFaqItemBlock(), min_num=0, label='FAQ Items')
+
+    class Meta:
+        icon  = 'help'
+        label = 'Lifestyle FAQ'
+
+
+# ─────────────────────────────────────────────────────────────────
+# LIFESTYLE CONTACT BLOCK ("Ready to bring danceSing Care...")
+# ─────────────────────────────────────────────────────────────────
+
+class LifestyleContactBlock(blocks.StructBlock):
+    tag           = blocks.CharBlock(max_length=100, required=False, default='GET STARTED')
+    heading       = blocks.CharBlock(max_length=200, required=False, default='Ready to bring danceSing Care to your community?')
+    body          = blocks.TextBlock(required=False, default='Book a free consultation and let\'s talk through how Music, Movement, and Mindfulness can transform daily life for your residents and team.')
+    email         = blocks.EmailBlock(required=False, default='support@dancesing.online')
+    response_time = blocks.CharBlock(max_length=100, required=False, default='We respond within 48 hours.')
+    rating_text   = blocks.CharBlock(max_length=100, required=False, default='4.9 out of 5 Stars from Reviews')
+    ctas          = blocks.ListBlock(CtaBlock(), min_num=0, label='Left Column CTAs')
+
+    form_heading  = blocks.CharBlock(max_length=200, required=False, default='Get in touch with us')
+    form_subtext  = blocks.CharBlock(max_length=200, required=False, default='We respond within 48 hours')
+
+    class Meta:
+        icon  = 'mail'
+        label = 'Lifestyle Contact'
+
+
+class LifestylePage(Page):
+    body = StreamField(
+        [
+            ('lifestyle_hero',       LifestyleHeroBlock()),
+            ('lifestyle_programme',  LifestyleProgrammeBlock()),
+            ('lifestyle_disciplines', LifestyleDisciplinesBlock()),
+            ('lifestyle_evidence',   LifestyleEvidenceBlock()),
+            ('lifestyle_radio',      LifestyleRadioBlock()),
+            ('lifestyle_consultation', LifestyleConsultationBlock()),
+            ('lifestyle_testimonials', LifestyleTestimonialsBlock()),
+            ('lifestyle_faq',        LifestyleFaqBlock()),
+            ('lifestyle_contact',    LifestyleContactBlock()),
+            # Future sections can be added here
+            ('cta_banner',    CtaBannerBlock()),
+            ('testimonials',  TestimonialsBlock()),
+            ('faq_accordion', FaqAccordionBlock()),
+            ('newsletter',    NewsletterBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body', classname='full'),
+    ]
+
+    class Meta:
+        verbose_name = 'Lifestyle Page'
+
+class TrainingFeatureCardBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=100, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = 'placeholder'
+        label = 'Feature Card'
+
+class TrainingHeroBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='Empowering Care Teams')
+    heading = blocks.CharBlock(max_length=300, required=False, default='Empowering Teams,\nElevating Care Standards')
+    body = blocks.TextBlock(required=False)
+    image = ImageChooserBlock(required=False)
+    floating_cards = blocks.ListBlock(TrainingFeatureCardBlock(), min_num=0, max_num=3, label='Floating Feature Cards (max 3)')
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon = 'image'
+        label = 'Training Hero'
+
+class TrainingPlatformCardBlock(blocks.StructBlock):
+    image = ImageChooserBlock(required=False)
+    title = blocks.CharBlock(max_length=150, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = 'image'
+        label = 'Platform Card'
+
+class TrainingPlatformBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='THE PLATFORM')
+    heading = blocks.CharBlock(max_length=300, required=False, default='More Than Training — A Comprehensive Care Hub')
+    body = blocks.TextBlock(required=False)
+    cards = blocks.ListBlock(TrainingPlatformCardBlock(), min_num=0, max_num=4, label='Platform Cards')
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon = 'list-ul'
+        label = 'Training Platform'
+
+class TrainingJourneyStepBlock(blocks.StructBlock):
+    number = blocks.CharBlock(max_length=10, required=False, help_text="e.g. '01'")
+    title = blocks.CharBlock(max_length=150, required=False)
+    description = blocks.TextBlock(required=False)
+    duration = blocks.CharBlock(max_length=50, required=False, help_text="e.g. 'WEEK 1-2'")
+
+    class Meta:
+        icon = 'list-ol'
+        label = 'Journey Step'
+
+class TrainingJourneyCertificateBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=150, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = 'success'
+        label = 'Certificate Box'
+
+class TrainingJourneyBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='THE TRAINING JOURNEY')
+    heading = blocks.CharBlock(max_length=300, required=False, default='A 12-month programme built for lasting impact')
+    body = blocks.TextBlock(required=False)
+    certificate = blocks.StructBlock([
+        ('title', blocks.CharBlock(max_length=150, required=False)),
+        ('description', blocks.TextBlock(required=False)),
+    ], required=False)
+    steps = blocks.ListBlock(TrainingJourneyStepBlock(), min_num=0, label='Journey Steps')
+    ctas = blocks.ListBlock(CtaBlock(), min_num=0, label='CTA Buttons')
+
+    class Meta:
+        icon = 'date'
+        label = 'Training Journey'
+
+class TrainingPage(Page):
+    body = StreamField(
+        [
+            ('training_hero', TrainingHeroBlock()),
+            ('training_platform', TrainingPlatformBlock()),
+            ('training_journey', TrainingJourneyBlock()),
+            ('cta_banner',    CtaBannerBlock()),
+            ('testimonials',  TestimonialsBlock()),
+            ('faq_accordion', FaqAccordionBlock()),
+            ('newsletter',    NewsletterBlock()),
+            ('contact_section', ContactSectionBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body', classname='full'),
+    ]
+
+    class Meta:
+        verbose_name = 'Training Page'

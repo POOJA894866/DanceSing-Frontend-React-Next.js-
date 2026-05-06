@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 
 const AboutHero = ({ data }) => {
   if (!data) return null;
@@ -96,13 +97,21 @@ const AboutHero = ({ data }) => {
 
             {/* CTA Buttons */}
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              {ctas.length > 0 ? ctas.map((cta, i) => (
-                <a key={i} href={cta.href} style={btnStyle(cta.style)}>{cta.label}</a>
-              )) : (
+              {ctas.length > 0 ? ctas.map((cta, i) => {
+                let href = cta.href || '#';
+                const labelLower = cta.label?.toLowerCase() || '';
+                if (labelLower.includes('care')) href = '/care';
+                else if (labelLower.includes('lifestyle')) href = '/lifestyle';
+                else if (labelLower.includes('about')) href = '/about';
+
+                return (
+                  <Link key={i} href={href} style={btnStyle(cta.style)}>{cta.label}</Link>
+                );
+              }) : (
                 <>
-                  <a href="/care" style={{ ...btnStyle('#964B4B'), fontFamily: 'Roboto' }}>Explore Care →</a>
-                  <a href="#lifestyle" style={{ ...btnStyle('#3D634B'), fontFamily: 'Roboto' }}>Explore Lifestyle →</a>
-                  <a href="#demo" style={{ ...btnStyle('#F2F4F3'), fontFamily: 'Roboto' }}>Watch Demo</a>
+                  <Link href="/care" style={{ ...btnStyle('#964B4B'), fontFamily: 'Roboto' }}>Explore Care →</Link>
+                  <Link href="/lifestyle" style={{ ...btnStyle('#3D634B'), fontFamily: 'Roboto' }}>Explore Lifestyle →</Link>
+                  <Link href="#demo" style={{ ...btnStyle('#F2F4F3'), fontFamily: 'Roboto' }}>Watch Demo</Link>
                 </>
               )}
             </div>
@@ -124,11 +133,17 @@ const AboutHero = ({ data }) => {
               border: '1px solid rgba(255,255,255,0.12)',
               position: 'relative'
             }}>
-              {/* Show image if provided */}
-              {images.length > 0 && (
+              {/* Show image if provided, else fallback */}
+              {images.length > 0 && images[0]?.src ? (
                 <img
                   src={images[0].src}
                   alt={images[0].alt || ''}
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <img
+                  src="/images/pr1.jpg"
+                  alt="About danceSing"
                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               )}

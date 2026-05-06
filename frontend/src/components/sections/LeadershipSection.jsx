@@ -74,7 +74,12 @@ const LeadershipSection = ({ data }) => {
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
         gap: '55px',
       }}>
-        {members.map((member, i) => (
+        {members.map((member, i) => {
+          // Fallback images for known founders when Wagtail has no image uploaded
+          const FALLBACK_IMAGES = ['/images/nat.jpg', '/images/cla.jpg'];
+          const imgSrc = member.image?.src || FALLBACK_IMAGES[i] || null;
+
+          return (
           <div key={i} style={{
             background: 'white',
             borderRadius: '24px',
@@ -95,15 +100,15 @@ const LeadershipSection = ({ data }) => {
               <div style={{
                 width: '100%',
                 aspectRatio: '1/1',
-                background: member.image?.src ? 'transparent' : 'rgba(255,255,255,0.08)',
+                background: imgSrc ? 'transparent' : 'rgba(255,255,255,0.08)',
                 borderRadius: '16px',
                 overflow: 'hidden',
                 marginBottom: '24px',
               }}>
-                {member.image?.src ? (
+                {imgSrc ? (
                   <img
-                    src={member.image.src}
-                    alt={member.image.alt || member.name}
+                    src={imgSrc}
+                    alt={member.image?.alt || member.name}
                     style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
                   />
                 ) : (
@@ -186,7 +191,8 @@ const LeadershipSection = ({ data }) => {
               ))}
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

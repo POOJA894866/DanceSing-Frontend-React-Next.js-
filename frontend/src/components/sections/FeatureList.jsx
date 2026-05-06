@@ -33,9 +33,9 @@ const FeatureList = ({ data }) => {
                     </div>
                   )}
                 </div>
-                {item.image?.src && (
+                {(item.image?.src || true) && (
                   <div className="feature-row__image">
-                    <img src={item.image.src} alt={item.image.alt || item.heading} loading="lazy" />
+                    <img src={item.image?.src || `/images/pr${(i % 4) + 1}.jpg`} alt={item.image?.alt || item.heading} loading="lazy" />
                   </div>
                 )}
               </div>

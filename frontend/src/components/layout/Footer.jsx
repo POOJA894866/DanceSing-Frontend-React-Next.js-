@@ -31,8 +31,15 @@ const Footer = ({ data }) => {
           <div style={{ textAlign: 'left' }}>
             <h4 style={{ fontSize: '12px', fontWeight: '800', color: '#cbd5e1', letterSpacing: '0.1em', marginBottom: '20px' }}>QUICK LINKS</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {['Home', 'About Us', 'Care', 'Training', 'On Air', 'Lifestyle'].map((item, i) => (
-                <a key={i} href="#" style={{ color: '#94a3b8', fontSize: '14px', textDecoration: 'none' }}>{item}</a>
+              {[
+                { label: 'Home', href: '/' },
+                { label: 'About Us', href: '/about' },
+                { label: 'Care', href: '/care' },
+                { label: 'Training', href: '/training' },
+                { label: 'On Air', href: '#radio' },
+                { label: 'Lifestyle', href: '/lifestyle' }
+              ].map((item, i) => (
+                <a key={i} href={item.href} style={{ color: '#94a3b8', fontSize: '14px', textDecoration: 'none' }}>{item.label}</a>
               ))}
             </div>
           </div>
