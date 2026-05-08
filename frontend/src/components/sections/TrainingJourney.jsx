@@ -45,7 +45,7 @@ const TrainingJourney = ({ data }) => {
       }}>
         
         {/* Left Column - Content & Certificate */}
-        <div style={{ position: 'sticky', top: '120px' }}>
+        <div>
           <span style={{
             display: 'block',
             fontSize: '12px',
@@ -168,7 +168,7 @@ const TrainingJourney = ({ data }) => {
         </div>
 
         {/* Right Column - Steps List */}
-        <div>
+        <div style={{ position: 'sticky', top: '120px' }}>
           {steps.map((step, i) => (
             <div key={i} style={{
               display: 'flex',

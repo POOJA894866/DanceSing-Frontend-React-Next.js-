@@ -1426,17 +1426,310 @@ class TrainingJourneyBlock(blocks.StructBlock):
         icon = 'date'
         label = 'Training Journey'
 
+class TrainingSupportListItemBlock(blocks.StructBlock):
+    text = blocks.TextBlock(required=False, help_text="e.g. Step-by-step guidance on device setup...")
+
+    class Meta:
+        icon = 'tick'
+        label = 'List Item'
+
+class TrainingSupportCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(choices=[
+        ('access', 'Access & Setup'),
+        ('engagement', 'Engagement Coaching'),
+        ('facilitation', 'Facilitation Training'),
+        ('support', 'Ongoing Support'),
+    ], default='access', required=False)
+    category = blocks.CharBlock(required=False, help_text="e.g. ACCESS & SETUP")
+    title = blocks.CharBlock(required=False, help_text="e.g. Technical Setup & Onboarding")
+    items = blocks.ListBlock(TrainingSupportListItemBlock(), min_num=0, label='Bullet Items')
+
+    class Meta:
+        icon = 'doc-full'
+        label = 'Support Card'
+
+class TrainingSupportBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='COMPREHENSIVE SUPPORT')
+    heading = blocks.CharBlock(max_length=300, required=False, default='Everything your team needs to succeed')
+    body = blocks.TextBlock(required=False, default='Thorough onboarding and continuous support across four pillars — so your staff feel confident from day one and supported for the long term.')
+    cards = blocks.ListBlock(TrainingSupportCardBlock(), min_num=0, max_num=4, label='Support Cards')
+
+    class Meta:
+        icon = 'help'
+        label = 'Training Support'
+
+class TrainingOutcomeCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(choices=[
+        ('morale', 'Improved Staff Morale'),
+        ('burnout', 'Reduced Burnout'),
+        ('development', 'Professional Development'),
+        ('resident', 'Better Resident Outcomes'),
+        ('impact', 'Evidenced Impact'),
+        ('culture', 'Lasting Cultural Change'),
+    ], default='morale', required=False)
+    title = blocks.CharBlock(max_length=200, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = 'placeholder'
+        label = 'Outcome Card'
+
+class TrainingComplianceBoxBlock(blocks.StructBlock):
+    title = blocks.CharBlock(max_length=200, required=False, default='Supports CAPA & regulatory frameworks')
+    bullet_1 = blocks.CharBlock(max_length=200, required=False, default='Staff earn the danceSing Level 1 Facilitation Certificate')
+    bullet_2 = blocks.CharBlock(max_length=200, required=False, default='Audit-ready documentation')
+
+    class Meta:
+        icon = 'tick'
+        label = 'Compliance Box'
+
+class TrainingOutcomesBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='WHAT TRAINING DELIVERS')
+    heading = blocks.CharBlock(max_length=300, required=False, default='Real outcomes for staff and residents')
+    body_1 = blocks.TextBlock(required=False, default='danceSing Training is built on the evidence that better-supported, more confident care teams deliver better outcomes for the residents they care for. The data backs this up consistently.')
+    body_2 = blocks.TextBlock(required=False, default='Training also directly supports regulatory compliance — helping care homes align with frameworks like CAPA and ensuring staff are audit-ready with enhanced professional credentials.')
+    compliance_box = TrainingComplianceBoxBlock(required=False)
+    cta_1_label = blocks.CharBlock(max_length=100, required=False, default='Book a Consultation →')
+    cta_1_href = blocks.CharBlock(max_length=255, required=False, default='#consultation')
+    cta_2_label = blocks.CharBlock(max_length=100, required=False, default='View Training Price →')
+    cta_2_href = blocks.CharBlock(max_length=255, required=False, default='#pricing')
+    outcome_cards = blocks.ListBlock(TrainingOutcomeCardBlock(), min_num=0, max_num=6, label='Outcome Cards (max 6)')
+
+    class Meta:
+        icon = 'success'
+        label = 'Training Outcomes'
+
+class TrainingConsultationStepBlock(blocks.StructBlock):
+    number = blocks.CharBlock(max_length=10, required=False, help_text="e.g. 01")
+    title = blocks.CharBlock(max_length=200, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = 'list-ol'
+        label = 'Step'
+
+class TrainingConsultationAudienceCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('nurse', 'Nurse / Caregiver'),
+            ('activity', 'Activity Staff'),
+            ('manager', 'Manager'),
+        ],
+        default='nurse',
+        required=False,
+    )
+    title = blocks.CharBlock(max_length=200, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon = 'group'
+        label = 'Audience Card'
+
+class TrainingConsultationBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='GET STARTED')
+    heading = blocks.CharBlock(max_length=200, required=False, default="Let's talk about your team")
+    body = blocks.TextBlock(required=False, default='Every care setting is different. Our team will listen to your challenges and show you exactly how danceSing Training can build capability, reduce pressure, and raise standards across your community.')
+    steps = blocks.ListBlock(TrainingConsultationStepBlock(), min_num=0, label='Steps')
+    cta = CtaBlock(required=False, label='CTA Button')
+    image = ImageChooserBlock(required=False)
+
+    audience_heading = blocks.CharBlock(max_length=200, required=False, default="Who is this Right for?")
+    audience_body = blocks.TextBlock(required=False, default="danceSing Training is built for anyone responsible for delivering or managing daily engagement in a care setting.")
+    audience_cards = blocks.ListBlock(TrainingConsultationAudienceCardBlock(), min_num=0, max_num=3, label='Audience Cards')
+    audience_cta = CtaBlock(required=False, label='Audience CTA')
+
+    class Meta:
+        icon = 'group'
+        label = 'Training Consultation'
+
+class TrainingTestimonialItemBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=50, required=False, default='CARE')
+    text = blocks.TextBlock(required=False, help_text="The testimonial quote")
+    author = blocks.CharBlock(max_length=200, required=False, help_text="e.g. - Resident Impact")
+
+    class Meta:
+        icon = 'quote'
+        label = 'Testimonial Item'
+
+class TrainingTestimonialsBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=100, required=False, default='WHAT CARE TEAMS SAY')
+    heading = blocks.CharBlock(max_length=300, required=False, default='Heard directly from the communities we serve')
+    body = blocks.TextBlock(required=False, default="Real feedback from care managers, activities coordinators, researchers, and residents' families across the UK.")
+    items = blocks.ListBlock(TrainingTestimonialItemBlock(), min_num=0, label='Testimonial Items')
+
+    class Meta:
+        icon = 'group'
+        label = 'Training Testimonials'
+
+class TrainingFaqBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(max_length=50, required=False, default='SUPPORT')
+    heading = blocks.CharBlock(max_length=200, required=False, default='Everything you need to know about Training')
+    subtitle = blocks.TextBlock(required=False, default='Answers to the questions care managers, activities coordinators, and team leaders ask us most before getting started.')
+    support_box_text = blocks.TextBlock(required=False, default="Can't find what you're looking for? Our team responds within 48 hours.")
+    support_email = blocks.CharBlock(max_length=100, required=False, default='support@dancesing.online')
+    items = blocks.ListBlock(FaqItemBlock(), min_num=0, label="FAQ Items")
+
+    class Meta:
+        icon = 'help'
+        label = 'Training FAQ'
+
+class TrainingContactBlock(blocks.StructBlock):
+    tag = blocks.CharBlock(required=False, default="GET STARTED")
+    heading = blocks.CharBlock(required=False, default="Ready to bring danceSing Training to your community?")
+    body = blocks.TextBlock(required=False, default="Book a free consultation and let's talk through how Music, Movement, and Mindfulness can transform daily life for your residents and team.")
+    email_label = blocks.CharBlock(required=False, default="Email ID:")
+    email_address = blocks.CharBlock(required=False, default="support@dancesing.online")
+    response_label = blocks.CharBlock(required=False, default="Response time:")
+    response_text = blocks.CharBlock(required=False, default="We respond within 48 hours.")
+    rating_label = blocks.CharBlock(required=False, default="Rating:")
+    rating_text = blocks.CharBlock(required=False, default="4.9 out of 5 Stars from Reviews")
+    button_1_label = blocks.CharBlock(required=False, default="Book a Consultation →")
+    button_1_link = blocks.CharBlock(required=False, default="#book")
+    button_2_label = blocks.CharBlock(required=False, default="View Pricing")
+    button_2_link = blocks.CharBlock(required=False, default="#pricing")
+    form_heading = blocks.CharBlock(required=False, default="Get in touch with us")
+    form_response_text = blocks.CharBlock(required=False, default="We respond within 48 hours")
+    form_button_label = blocks.CharBlock(required=False, default="Send Message →")
+
+    class Meta:
+        icon = 'mail'
+        label = 'Training Contact Form'
+
+
+# ─────────────────────────────────────────────────────────────────
+# TRAINING BEYOND CARE BLOCK
+# ─────────────────────────────────────────────────────────────────
+
+class TrainingCurrentlyTrainItemBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('building', 'Building / Office'),
+            ('hospital', 'Hospital / NHS'),
+            ('network',  'Network / Multi-site'),
+            ('home',     'Home / Residential'),
+        ],
+        default='building',
+        required=False,
+        help_text='Icon shown next to the pill label',
+    )
+    label = blocks.CharBlock(
+        max_length=200,
+        required=False,
+        help_text="e.g. 'Care homes & residential settings'",
+    )
+
+    class Meta:
+        icon  = 'tick'
+        label = 'Currently-Train Pill'
+
+
+class TrainingBeyondCareBenefitCardBlock(blocks.StructBlock):
+    icon = blocks.ChoiceBlock(
+        choices=[
+            ('briefcase',   'Corporate / Briefcase'),
+            ('community',   'Community / Group'),
+            ('education',   'Education / Book'),
+            ('fitness',     'Fitness / Smiley'),
+            ('mindfulness', 'Mindfulness / Pulse'),
+            ('question',    'Something else / Heart'),
+        ],
+        default='briefcase',
+        required=False,
+        help_text='Icon shown in the benefit card',
+    )
+    title       = blocks.CharBlock(max_length=200, required=False)
+    description = blocks.TextBlock(required=False)
+
+    class Meta:
+        icon  = 'doc-full'
+        label = 'Benefit Card'
+
+
+class TrainingBeyondCareBlock(blocks.StructBlock):
+    # ── Top split ──────────────────────────────────────────────
+    section_tag = blocks.CharBlock(
+        max_length=100,
+        required=False,
+        default='TRAINING BEYOND CARE',
+        help_text='Small uppercase label above the heading',
+    )
+    heading = blocks.CharBlock(
+        max_length=300,
+        required=False,
+        default='Currently built for care —\nbut not limited to it',
+    )
+    body = blocks.TextBlock(
+        required=False,
+        default=(
+            'Right now, danceSing Training is focused on care homes, hospital trusts, and '
+            'adult social care teams — where the need is clearest and the impact is most '
+            'immediate.\n\n'
+            'But the programme — building confident facilitation of Music, Movement, and '
+            'Mindfulness — is transferable. If you work in a setting that isn\'t a care home but '
+            'could benefit from what we do, we want to hear from you. We\'re open to '
+            'exploring training partnerships beyond the care sector, and happy to discuss '
+            'what that could look like.'
+        ),
+    )
+    image = ImageChooserBlock(
+        required=False,
+        help_text='Photo displayed on the right-hand side',
+    )
+
+    # ── Currently-train pills ───────────────────────────────────
+    currently_train_heading = blocks.CharBlock(
+        max_length=200,
+        required=False,
+        default='Who We Currently Train',
+    )
+    currently_train_items = blocks.ListBlock(
+        TrainingCurrentlyTrainItemBlock(),
+        min_num=0,
+        max_num=6,
+        label='Currently-Train Pills',
+    )
+
+    # ── Bottom benefit-cards grid ───────────────────────────────
+    benefit_heading = blocks.CharBlock(
+        max_length=200,
+        required=False,
+        default='Who Else Could Benefit?',
+    )
+    benefit_subtitle = blocks.TextBlock(
+        required=False,
+        default=(
+            "These are the settings we're open to discussing — if any of these sound like "
+            "your organisation, reach out and let's explore what a training partnership "
+            "could look like."
+        ),
+    )
+    benefit_cards = blocks.ListBlock(
+        TrainingBeyondCareBenefitCardBlock(),
+        min_num=0,
+        max_num=6,
+        label='Benefit Cards (max 6)',
+    )
+
+    class Meta:
+        icon  = 'globe'
+        label = 'Training Beyond Care'
+
+
 class TrainingPage(Page):
     body = StreamField(
         [
             ('training_hero', TrainingHeroBlock()),
             ('training_platform', TrainingPlatformBlock()),
             ('training_journey', TrainingJourneyBlock()),
+            ('training_support', TrainingSupportBlock()),
+            ('training_outcomes', TrainingOutcomesBlock()),
+            ('training_consultation', TrainingConsultationBlock()),
+            ('training_beyond_care', TrainingBeyondCareBlock()),
             ('cta_banner',    CtaBannerBlock()),
-            ('testimonials',  TestimonialsBlock()),
-            ('faq_accordion', FaqAccordionBlock()),
+            ('training_testimonials',  TrainingTestimonialsBlock()),
+            ('training_faq', TrainingFaqBlock()),
+            ('training_contact', TrainingContactBlock()),
             ('newsletter',    NewsletterBlock()),
-            ('contact_section', ContactSectionBlock()),
         ],
         use_json_field=True,
         blank=True,

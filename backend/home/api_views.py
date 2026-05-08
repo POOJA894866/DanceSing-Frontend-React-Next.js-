@@ -1009,15 +1009,182 @@ def serialize_training_journey(value, request):
         ]
     }
 
+def serialize_training_support(value, request):
+    return {
+        'type': 'training-support',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'cards': [
+            {
+                'icon': str(card.get('icon') or ''),
+                'category': str(card.get('category') or ''),
+                'title': str(card.get('title') or ''),
+                'items': [{'text': str(item.get('text') or '')} for item in card.get('items', [])]
+            } for card in value.get('cards', [])
+        ]
+    }
+
+def serialize_training_outcomes(value, request):
+    compliance = value.get('compliance_box') or {}
+    return {
+        'type': 'training-outcomes',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body_1': str(value.get('body_1') or ''),
+        'body_2': str(value.get('body_2') or ''),
+        'compliance_box': {
+            'title': str(compliance.get('title') or ''),
+            'bullet_1': str(compliance.get('bullet_1') or ''),
+            'bullet_2': str(compliance.get('bullet_2') or ''),
+        },
+        'cta_1_label': str(value.get('cta_1_label') or ''),
+        'cta_1_href': str(value.get('cta_1_href') or ''),
+        'cta_2_label': str(value.get('cta_2_label') or ''),
+        'cta_2_href': str(value.get('cta_2_href') or ''),
+        'outcome_cards': [
+            {
+                'icon': str(card.get('icon') or ''),
+                'title': str(card.get('title') or ''),
+                'description': str(card.get('description') or ''),
+            } for card in (value.get('outcome_cards') or [])
+        ]
+    }
+
+def serialize_training_consultation(value, request):
+    image = value.get('image')
+    cta = value.get('cta') or {}
+    audience_cta = value.get('audience_cta') or {}
+    
+    return {
+        'type': 'training-consultation',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'steps': [
+            {
+                'number': str(step.get('number') or ''),
+                'title': str(step.get('title') or ''),
+                'description': str(step.get('description') or ''),
+            } for step in (value.get('steps') or [])
+        ],
+        'cta': {
+            'label': str(cta.get('label') or ''),
+            'link': str(cta.get('link') or ''),
+        },
+        'image': get_image_data(image, request) if image else None,
+        'audience_heading': str(value.get('audience_heading') or ''),
+        'audience_body': str(value.get('audience_body') or ''),
+        'audience_cards': [
+            {
+                'icon': str(card.get('icon') or ''),
+                'title': str(card.get('title') or ''),
+                'description': str(card.get('description') or ''),
+            } for card in (value.get('audience_cards') or [])
+        ],
+        'audience_cta': {
+            'label': str(audience_cta.get('label') or ''),
+            'link': str(audience_cta.get('link') or ''),
+        }
+    }
+
+def serialize_training_beyond_care(value, request):
+    currently_train_items = [
+        {
+            'icon':  str(item.get('icon')  or 'building'),
+            'label': str(item.get('label') or ''),
+        }
+        for item in (value.get('currently_train_items') or [])
+    ]
+    benefit_cards = [
+        {
+            'icon':        str(card.get('icon')        or 'briefcase'),
+            'title':       str(card.get('title')       or ''),
+            'description': str(card.get('description') or ''),
+        }
+        for card in (value.get('benefit_cards') or [])
+    ]
+    return {
+        'type':                    'training-beyond-care',
+        'section_tag':             str(value.get('section_tag')             or ''),
+        'heading':                 str(value.get('heading')                 or ''),
+        'body':                    str(value.get('body')                    or ''),
+        'image':                   get_image_data(value.get('image'), request),
+        'currently_train_heading': str(value.get('currently_train_heading') or ''),
+        'currently_train_items':   currently_train_items,
+        'benefit_heading':         str(value.get('benefit_heading')         or ''),
+        'benefit_subtitle':        str(value.get('benefit_subtitle')        or ''),
+        'benefit_cards':           benefit_cards,
+    }
+
+
+def serialize_training_testimonials(value, request):  
+    return {
+        'type': 'training-testimonials',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'items': [
+            {
+                'tag': str(item.get('tag') or ''),
+                'text': str(item.get('text') or ''),
+                'author': str(item.get('author') or ''),
+            } for item in (value.get('items') or [])
+        ]
+    }
+
+def serialize_training_faq(value, request):
+    items = []
+    for item in (value.get("items") or []):
+        items.append({
+            "question":    str(item.get("question") or ""),
+            "answer":      str(item.get("answer") or ""),
+            "defaultOpen": bool(item.get("default_open", False)),
+        })
+    return {
+        "type": "training-faq",
+        "tag": str(value.get("tag") or ""),
+        "heading": str(value.get("heading") or ""),
+        "subtitle": str(value.get("subtitle") or ""),
+        "support_box_text": str(value.get("support_box_text") or ""),
+        "support_email": str(value.get("support_email") or ""),
+        "items": items,
+    }
+
+def serialize_training_contact(value, request):
+    return {
+        'type': 'training-contact',
+        'tag': str(value.get('tag') or ''),
+        'heading': str(value.get('heading') or ''),
+        'body': str(value.get('body') or ''),
+        'email_label': str(value.get('email_label') or ''),
+        'email_address': str(value.get('email_address') or ''),
+        'response_label': str(value.get('response_label') or ''),
+        'response_text': str(value.get('response_text') or ''),
+        'rating_label': str(value.get('rating_label') or ''),
+        'rating_text': str(value.get('rating_text') or ''),
+        'button_1_label': str(value.get('button_1_label') or ''),
+        'button_1_link': str(value.get('button_1_link') or ''),
+        'button_2_label': str(value.get('button_2_label') or ''),
+        'button_2_link': str(value.get('button_2_link') or ''),
+        'form_heading': str(value.get('form_heading') or ''),
+        'form_response_text': str(value.get('form_response_text') or ''),
+        'form_button_label': str(value.get('form_button_label') or ''),
+    }
+
 TRAINING_BLOCK_SERIALIZERS = {
     'training_hero': serialize_training_hero,
     'training_platform': serialize_training_platform,
     'training_journey': serialize_training_journey,
+    'training_support': serialize_training_support,
+    'training_outcomes': serialize_training_outcomes,
+    'training_consultation': serialize_training_consultation,
+    'training_beyond_care':  serialize_training_beyond_care,
     'cta_banner': serialize_cta_banner,
-    'testimonials': serialize_testimonials,
-    'faq_accordion': serialize_faq_accordion,
+    'training_testimonials': serialize_training_testimonials,
+    'training_faq': serialize_training_faq,
+    'training_contact': serialize_training_contact,
     'newsletter': serialize_newsletter,
-    'contact_section': serialize_contact_section,
 }
 
 def trainingpage_api(request):
