@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: dancesing-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - backend_db:/app/db
+      - backend_media:/app/media
+    environment:
+      DJANGO_SETTINGS_MODULE: mysite.settings.dev
+      PYTHONUNBUFFERED: "1"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: dancesing-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NODE_ENV: development
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - backend
+
+volumes:
+  backend_db:
+  backend_media:
