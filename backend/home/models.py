@@ -1,10 +1,11 @@
 from django.db import models
 from wagtail.models import Page
-from wagtail.fields import StreamField
+from wagtail.fields import StreamField, RichTextField
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.snippets.models import register_snippet
 import json
 import os
 
@@ -1741,3 +1742,183 @@ class TrainingPage(Page):
 
     class Meta:
         verbose_name = 'Training Page'
+
+
+# ─────────────────────────────────────────────────────────────────
+# CALENDAR PAGE
+# ─────────────────────────────────────────────────────────────────
+
+class CalendarHeroBlock(blocks.StructBlock):
+    tag     = blocks.CharBlock(max_length=80, required=False, default='START YOUR JOURNEY')
+    heading = blocks.CharBlock(max_length=300, required=False, default='Book Your Free 30-Minute Demo')
+    body    = blocks.TextBlock(required=False, default='Pick a date that works for you. Our team will walk you through the platform, answer your questions, and help you find the right plan for your setting — no commitment, no pressure.')
+    image   = ImageChooserBlock(required=False, help_text='Right-side image (e.g. laptop / device mockup)')
+    ctas    = blocks.ListBlock(CtaBlock(), min_num=0, max_num=3, label='CTA Buttons')
+
+    class Meta:
+        icon  = 'date'
+        label = 'Calendar Hero (Book a Demo)'
+
+
+class CalendarIntroBlock(blocks.StructBlock):
+    tag          = blocks.CharBlock(max_length=80, required=False)
+    heading      = blocks.CharBlock(max_length=300, required=False)
+    body         = blocks.TextBlock(required=False)
+    bullet_items = blocks.ListBlock(blocks.CharBlock(max_length=200), required=False, label='Bullet Items')
+    image        = ImageChooserBlock(required=False)
+
+    class Meta:
+        icon  = 'list-ul'
+        label = 'Calendar Intro'
+
+
+class CalendarFormFieldBlock(blocks.StructBlock):
+    label       = blocks.CharBlock(max_length=120, required=True)
+    name        = blocks.CharBlock(max_length=80, required=True, help_text='Form field id, e.g. "full_name"')
+    placeholder = blocks.CharBlock(max_length=200, required=False)
+    field_type  = blocks.ChoiceBlock(
+        choices=[
+            ('text',     'Text'),
+            ('email',    'Email'),
+            ('tel',      'Phone'),
+            ('select',   'Select dropdown'),
+            ('textarea', 'Textarea'),
+        ],
+        default='text',
+    )
+    required    = blocks.BooleanBlock(required=False, default=False)
+    options     = blocks.ListBlock(
+        blocks.CharBlock(max_length=120),
+        required=False,
+        label='Options (only for select fields)',
+    )
+
+    class Meta:
+        icon  = 'form'
+        label = 'Form Field'
+
+
+class CalendarBookingBlock(blocks.StructBlock):
+    # Left column — calendar
+    dates_heading        = blocks.CharBlock(max_length=120, required=False, default='Select your dates')
+    dates_subtitle       = blocks.CharBlock(max_length=200, required=False, default='Pick any available slot from the calendar below')
+    legend_available     = blocks.CharBlock(max_length=40, required=False, default='Available')
+    legend_not_available = blocks.CharBlock(max_length=40, required=False, default='Not Available')
+    legend_today         = blocks.CharBlock(max_length=40, required=False, default='Today')
+    timezone_text        = blocks.CharBlock(max_length=200, required=False, default='All times shown in UK time (GMT+1) · British Summer Time')
+    slot_section_subtitle = blocks.CharBlock(max_length=200, required=False, default='Select a 30-minute window for your demo')
+    default_time_slots   = blocks.ListBlock(
+        blocks.CharBlock(max_length=20),
+        required=False,
+        label='Default 30-min slots',
+        default=['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '14:00', '14:30', '15:00'],
+    )
+
+    # Right column — details form
+    details_heading      = blocks.CharBlock(max_length=120, required=False, default='Enter your details')
+    details_subtitle     = blocks.CharBlock(max_length=300, required=False, default="We'll confirm your booking by email within a few minutes.")
+    date_confirmed_label = blocks.CharBlock(max_length=80, required=False, default='DATE CONFIRMED')
+    time_confirmed_label = blocks.CharBlock(max_length=80, required=False, default='UK TIME CONFIRMED')
+    required_note        = blocks.CharBlock(max_length=160, required=False, default='Fields marked * are required')
+    form_fields          = blocks.ListBlock(CalendarFormFieldBlock(), required=False, label='Form Fields')
+    submit_label         = blocks.CharBlock(max_length=80, required=False, default='Request this slot →')
+
+    class Meta:
+        icon  = 'date'
+        label = 'Calendar Booking'
+
+
+class CalendarStatItemBlock(blocks.StructBlock):
+    heading = blocks.CharBlock(max_length=40, required=False, help_text='e.g. 200+ or 4.9/5')
+    label   = blocks.CharBlock(max_length=120, required=False, help_text='e.g. Care Communities')
+
+    class Meta:
+        icon  = 'plus-inverse'
+        label = 'Stat Item'
+
+
+class CalendarStatsBlock(blocks.StructBlock):
+    stats = blocks.ListBlock(CalendarStatItemBlock(), min_num=0, max_num=8, label='Stats')
+
+    class Meta:
+        icon  = 'tablet-alt'
+        label = 'Calendar Stats Bar'
+
+
+@register_snippet
+class Event(models.Model):
+    EVENT_CATEGORIES = [
+        ('workshop',    'Workshop'),
+        ('performance', 'Performance'),
+        ('community',   'Community'),
+        ('training',    'Training'),
+    ]
+
+    title       = models.CharField(max_length=200)
+    slug        = models.SlugField(max_length=220, unique=True)
+    date        = models.DateField(db_index=True)
+    end_date    = models.DateField(null=True, blank=True)
+    time        = models.CharField(max_length=50, blank=True, help_text='e.g. "7:00 PM GMT"')
+    location    = models.CharField(max_length=200, blank=True)
+    image       = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    excerpt     = models.CharField(max_length=300, blank=True)
+    description = RichTextField(blank=True)
+    cta_label   = models.CharField(max_length=80, blank=True)
+    cta_href    = models.CharField(max_length=300, blank=True)
+    category    = models.CharField(
+        max_length=50,
+        choices=EVENT_CATEGORIES,
+        default='community',
+    )
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('slug'),
+        FieldPanel('date'),
+        FieldPanel('end_date'),
+        FieldPanel('time'),
+        FieldPanel('location'),
+        FieldPanel('image'),
+        FieldPanel('excerpt'),
+        FieldPanel('description'),
+        FieldPanel('cta_label'),
+        FieldPanel('cta_href'),
+        FieldPanel('category'),
+    ]
+
+    class Meta:
+        ordering = ['date']
+        verbose_name = 'Event'
+        verbose_name_plural = 'Events'
+
+    def __str__(self):
+        return f"{self.title} ({self.date})"
+
+
+class CalendarPage(Page):
+    body = StreamField(
+        [
+            ('calendar_hero',    CalendarHeroBlock()),
+            ('calendar_booking', CalendarBookingBlock()),
+            ('calendar_stats',   CalendarStatsBlock()),
+            ('calendar_intro',   CalendarIntroBlock()),
+            ('cta_banner',       CtaBannerBlock()),
+            ('faq_accordion',    FaqAccordionBlock()),
+            ('contact_section',  ContactSectionBlock()),
+            ('newsletter',       NewsletterBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body', classname='full'),
+    ]
+
+    class Meta:
+        verbose_name = 'Calendar Page'

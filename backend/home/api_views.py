@@ -378,7 +378,7 @@ BLOCK_SERIALIZERS = {
     "newsletter":      serialize_newsletter,
 }
 
-from home.models import HomePage, AboutPage, CarePage, LifestylePage, TrainingPage, NavigationSettings
+from home.models import HomePage, AboutPage, CarePage, LifestylePage, TrainingPage, CalendarPage, Event, NavigationSettings
 
 def get_navigation_data(page, request):
     nav_settings = NavigationSettings.for_site(page.get_site())
@@ -1205,6 +1205,137 @@ def trainingpage_api(request):
             "title": trainingpage.title,
             "navigation": get_navigation_data(trainingpage, request),
             "sections": sections
+        }
+        return JsonResponse(data)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({"error": str(e)}, status=500)
+
+
+# ─────────────────────────────────────────────────────────────────
+# CALENDAR PAGE API
+# ─────────────────────────────────────────────────────────────────
+
+def serialize_calendar_hero(value, request):
+    return {
+        "type":    "calendar-hero",
+        "tag":     str(value.get("tag") or ""),
+        "heading": str(value.get("heading") or ""),
+        "body":    str(value.get("body") or ""),
+        "image":   get_image_data(value.get("image"), request),
+        "ctas":    serialize_ctas(value.get("ctas")),
+    }
+
+
+def serialize_calendar_intro(value, request):
+    return {
+        "type":         "calendar-intro",
+        "tag":          str(value.get("tag") or ""),
+        "heading":      str(value.get("heading") or ""),
+        "body":         str(value.get("body") or ""),
+        "bullet_items": [str(x) for x in (value.get("bullet_items") or [])],
+        "image":        get_image_data(value.get("image"), request),
+    }
+
+
+def serialize_calendar_booking(value, request):
+    fields = []
+    for f in (value.get("form_fields") or []):
+        fields.append({
+            "label":       str(f.get("label") or ""),
+            "name":        str(f.get("name") or ""),
+            "placeholder": str(f.get("placeholder") or ""),
+            "field_type":  str(f.get("field_type") or "text"),
+            "required":    bool(f.get("required", False)),
+            "options":     [str(o) for o in (f.get("options") or [])],
+        })
+    return {
+        "type":                  "calendar-booking",
+        "dates_heading":         str(value.get("dates_heading") or ""),
+        "dates_subtitle":        str(value.get("dates_subtitle") or ""),
+        "legend_available":      str(value.get("legend_available") or ""),
+        "legend_not_available":  str(value.get("legend_not_available") or ""),
+        "legend_today":          str(value.get("legend_today") or ""),
+        "timezone_text":         str(value.get("timezone_text") or ""),
+        "slot_section_subtitle": str(value.get("slot_section_subtitle") or ""),
+        "default_time_slots":    [str(s) for s in (value.get("default_time_slots") or [])],
+        "details_heading":       str(value.get("details_heading") or ""),
+        "details_subtitle":      str(value.get("details_subtitle") or ""),
+        "date_confirmed_label":  str(value.get("date_confirmed_label") or ""),
+        "time_confirmed_label":  str(value.get("time_confirmed_label") or ""),
+        "required_note":         str(value.get("required_note") or ""),
+        "form_fields":           fields,
+        "submit_label":          str(value.get("submit_label") or ""),
+    }
+
+
+def serialize_calendar_stats(value, request):
+    stats = []
+    for s in (value.get("stats") or []):
+        stats.append({
+            "heading": str(s.get("heading") or ""),
+            "label":   str(s.get("label") or ""),
+        })
+    return {
+        "type":  "calendar-stats",
+        "stats": stats,
+    }
+
+
+def serialize_event(event, request):
+    return {
+        "id":          event.id,
+        "slug":        event.slug,
+        "title":       event.title,
+        "date":        event.date.isoformat() if event.date else None,
+        "end_date":    event.end_date.isoformat() if event.end_date else None,
+        "time":        event.time or "",
+        "location":    event.location or "",
+        "image":       get_image_data(event.image_id, request) if event.image_id else None,
+        "excerpt":     event.excerpt or "",
+        "description": str(event.description or ""),
+        "cta":         ({"label": event.cta_label, "href": event.cta_href or "#"} if event.cta_label else None),
+        "category":    event.category,
+    }
+
+
+CALENDAR_BLOCK_SERIALIZERS = {
+    'calendar_hero':    serialize_calendar_hero,
+    'calendar_booking': serialize_calendar_booking,
+    'calendar_stats':   serialize_calendar_stats,
+    'calendar_intro':   serialize_calendar_intro,
+    'cta_banner':       serialize_cta_banner,
+    'faq_accordion':    serialize_faq_accordion,
+    'contact_section':  serialize_contact_section,
+    'newsletter':       serialize_newsletter,
+}
+
+
+def calendarpage_api(request):
+    try:
+        from django.utils import timezone
+
+        page = CalendarPage.objects.live().public().first()
+        if not page:
+            return JsonResponse({"error": "No calendar page found"}, status=404)
+
+        sections = []
+        for block in page.body:
+            serializer = CALENDAR_BLOCK_SERIALIZERS.get(block.block_type)
+            if serializer:
+                sections.append(serializer(block.value, request))
+
+        include_past = request.GET.get('include_past') == '1'
+        qs = Event.objects.all() if include_past else Event.objects.filter(date__gte=timezone.now().date())
+        events = [serialize_event(e, request) for e in qs.order_by('date')]
+
+        data = {
+            "id":         page.id,
+            "title":      page.title,
+            "navigation": get_navigation_data(page, request),
+            "sections":   sections,
+            "events":     events,
         }
         return JsonResponse(data)
     except Exception as e:
