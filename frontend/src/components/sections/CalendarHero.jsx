@@ -1,140 +1,201 @@
 'use client';
 
 import React from 'react';
-import Button from '../common/Button';
 
 const CalendarHero = ({ data }) => {
-  if (!data) return null;
-
-  const tag = data.tag || 'START YOUR JOURNEY';
-  const heading = data.heading || 'Book Your Free 30-Minute Demo';
-  const body = data.body || '';
-  const image = data.image;
-  const ctas = data.ctas?.length ? data.ctas : [];
+  const tag = data?.tag || 'Start Your Journey';
+  const heading = data?.heading || 'Book Your Free 30-Minute Demo';
+  const body = data?.body || 'Pick a date that works for you. Our team will walk you through the platform, answer your questions, and help you find the right plan for your setting — no commitment, no pressure.';
+  const image = data?.image;
+  const ctas = data?.ctas?.length ? data.ctas : [
+    { label: 'Explore our Programmes →', href: '#booking', style: 'solid-light' },
+    { label: 'Talk to Our Team',          href: '/contact',  style: 'outline-light' },
+  ];
 
   return (
     <section className="cal-hero">
       <div className="cal-hero__inner">
         <div className="cal-hero__copy">
-          {tag && <span className="cal-hero__tag">{tag}</span>}
+          <p className="cal-hero__tag">{tag}</p>
           <h1 className="cal-hero__heading">{heading}</h1>
-          {body && <p className="cal-hero__body">{body}</p>}
+          <p className="cal-hero__body">{body}</p>
 
-          {ctas.length > 0 && (
-            <div className="cal-hero__ctas">
-              {ctas.map((cta, i) => (
-                <Button
+          <div className="cal-hero__ctas">
+            {ctas.map((cta, i) => {
+              const isSolid = (cta.style || (i === 0 ? 'solid-light' : 'outline-light')) === 'solid-light';
+              return (
+                <a
                   key={i}
-                  label={cta.label}
                   href={cta.href || '#'}
-                  style={cta.style || (i === 0 ? 'outline-white' : 'text-arrow')}
-                />
-              ))}
-            </div>
-          )}
+                  className={`cal-hero__btn ${isSolid ? 'cal-hero__btn--solid' : 'cal-hero__btn--outline'}`}
+                >
+                  {cta.label}
+                </a>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="cal-hero__visual">
-          {image?.src ? (
-            <img src={image.src} alt={image.alt || heading} className="cal-hero__image" />
-          ) : (
-            <div className="cal-hero__laptop" aria-hidden="true">
-              <div className="cal-hero__laptop-screen" />
-              <div className="cal-hero__laptop-base" />
+        <div className="cal-hero__visual" aria-hidden={!image?.src}>
+          <div className="cal-hero__laptop-frame">
+            <img
+              src={image?.src || '/images/calendar-macbook.png'}
+              alt={image?.alt || 'danceSing platform on MacBook'}
+              className="cal-hero__laptop-img"
+            />
+            <div className="cal-hero__brand-chip">
+              <span className="cal-hero__brand-dot" aria-hidden="true" />
+              danceSing
             </div>
-          )}
+          </div>
         </div>
       </div>
 
       <style jsx>{`
         .cal-hero {
-          background: var(--navy);
-          color: var(--white);
-          padding: 120px 0 100px;
+          background: #283466;
+          color: #f6f8f9;
+          padding: 90px 0 90px;
           position: relative;
           overflow: hidden;
         }
         .cal-hero__inner {
-          max-width: 1400px;
+          max-width: 1600px;
           margin: 0 auto;
           padding: 0 64px;
           display: grid;
-          grid-template-columns: 1.05fr 1fr;
-          gap: 60px;
+          grid-template-columns: 1fr 1fr;
+          gap: 48px;
           align-items: center;
         }
+        .cal-hero__copy {
+          max-width: 720px;
+          padding-right: 12px;
+        }
         .cal-hero__tag {
-          display: inline-block;
-          font-size: 13px;
+          font-family: 'Roboto', sans-serif;
+          font-size: 14px;
           font-weight: 600;
-          letter-spacing: 0.18em;
+          line-height: 1.5;
+          letter-spacing: 0.02em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.75);
-          margin-bottom: 18px;
+          color: rgba(246, 248, 249, 0.8);
+          margin: 0 0 16px;
         }
         .cal-hero__heading {
           font-family: var(--font-serif);
-          font-size: clamp(36px, 4.6vw, 64px);
-          font-weight: 700;
-          line-height: 1.08;
+          font-size: clamp(40px, 4.4vw, 60px);
+          font-weight: 600;
+          line-height: 1.12;
           letter-spacing: -0.5px;
-          color: var(--white);
+          color: #f6f8f9;
           margin: 0 0 22px;
+          text-transform: capitalize;
         }
         .cal-hero__body {
+          font-family: 'Roboto', sans-serif;
           font-size: 16px;
-          line-height: 1.7;
-          color: rgba(255,255,255,0.78);
-          max-width: 560px;
-          margin: 0 0 30px;
+          line-height: 1.6;
+          color: #f6f8f9;
+          margin: 0 0 28px;
+          max-width: 640px;
         }
         .cal-hero__ctas {
           display: flex;
-          gap: 12px;
+          gap: 10px;
           flex-wrap: wrap;
         }
+        .cal-hero__btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 40px;
+          padding: 0 20px;
+          border-radius: 6px;
+          font-family: 'Roboto', sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1.5;
+          border: 1.5px solid #f6f8f9;
+          transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+          text-decoration: none;
+          white-space: nowrap;
+        }
+        .cal-hero__btn:hover { transform: translateY(-1px); }
+        .cal-hero__btn--solid {
+          background: #f6f8f9;
+          color: #283466;
+        }
+        .cal-hero__btn--solid:hover { background: #e8ecf2; }
+        .cal-hero__btn--outline {
+          background: transparent;
+          color: #f6f8f9;
+          box-shadow: 0 1px 2px rgba(8, 3, 7, 0.05);
+        }
+        .cal-hero__btn--outline:hover { background: rgba(246, 248, 249, 0.08); }
+
         .cal-hero__visual {
           display: flex;
           justify-content: center;
           align-items: center;
+          padding: 0 12px;
         }
-        .cal-hero__image {
-          width: 100%;
-          max-width: 720px;
-          height: auto;
-          border-radius: 14px;
-          box-shadow: 0 24px 60px rgba(0,0,0,0.35);
-        }
-        .cal-hero__laptop {
-          width: 100%;
-          max-width: 640px;
-          aspect-ratio: 16 / 10;
-          border-radius: 14px;
-          background: linear-gradient(180deg, #f1f3f6 0%, #d8dde4 100%);
+        .cal-hero__laptop-frame {
           position: relative;
-          box-shadow: 0 30px 70px rgba(0,0,0,0.45);
-          border: 8px solid #1a1f3c;
+          width: 100%;
+          max-width: 820px;
         }
-        .cal-hero__laptop-base {
+        .cal-hero__laptop-img {
+          display: block;
+          width: 100%;
+          height: auto;
+          filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.35));
+        }
+        .cal-hero__brand-chip {
           position: absolute;
-          left: -8%;
-          right: -8%;
-          bottom: -14px;
-          height: 14px;
-          background: #1a1f3c;
-          border-radius: 0 0 14px 14px;
+          right: 11.5%;
+          bottom: 14.5%;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 4px 12px;
+          background: #f0f1ff;
+          border-radius: 0 0 12px 12px;
+          font-family: var(--font-serif);
+          font-weight: 700;
+          font-size: 13px;
+          color: #283466;
+          letter-spacing: -0.01em;
+          line-height: 1.6;
         }
-        @media (max-width: 960px) {
+        .cal-hero__brand-dot {
+          width: 6px;
+          height: 8px;
+          background: #283466;
+          border-radius: 1px;
+          transform: skewX(-12deg);
+        }
+
+        @media (max-width: 1100px) {
+          .cal-hero__inner {
+            padding: 0 32px;
+            gap: 32px;
+          }
+        }
+        @media (max-width: 900px) {
           .cal-hero {
-            padding: 90px 0 70px;
+            padding: 72px 0 60px;
           }
           .cal-hero__inner {
             grid-template-columns: 1fr;
-            padding: 0 24px;
             gap: 40px;
+            padding: 0 24px;
           }
           .cal-hero__heading {
-            font-size: clamp(30px, 8vw, 44px);
+            font-size: clamp(32px, 8vw, 44px);
+          }
+          .cal-hero__visual {
+            padding: 0;
           }
         }
       `}</style>

@@ -124,7 +124,7 @@ const CalendarBooking = ({ data }) => {
   const showConfirmedBar = selectedDate && selectedSlot;
 
   return (
-    <section className="cal-booking">
+    <section className="cal-booking" id="booking">
       <div className="cal-booking__inner">
         {/* LEFT — Calendar + Time slots */}
         <div className="cal-booking__left">
